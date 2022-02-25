@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            基于图像识别与位置关系的Android控件遍历方式 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于图像识别与位置关系的Android控件遍历方式</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2020-05-09 15:00:00</span>
+        <span class="mobile">2020-05-09 15:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">自动化测试</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Android/">Android</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Airtest/">Airtest</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Python/">Python</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">图像识别</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OpenCV/">OpenCV</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>  在<a class="link" target="_blank" rel="noopener" href="https://ray0728.gitee.io/2020/05/03/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E5%85%83%E7%B4%A0%E9%81%8D%E5%8E%86/">《基于图像识别的Android控件遍历》<i class="fas fa-external-link-alt"></i></a>中描述了一种根据控件区域截图来遍历UI控件的方法，但是这种方法存在很大的缺陷，即无法准确区分相似度很大控件，如下图中的桌面壁纸、显示亮度与移动网络。<br><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/05/08/Screenshot_20210505_103757_com.android.settings_edit_56532789152822052830719968f71.jpg" alt="设置界面"></p>
+<p>  要提高准确度就需要引入更多的判断条件。这里尝试引入位置关系，来辅助识别。</p>
+<span id="more"></span>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>  UI上所有的控件都是以布局（特指界面绘制布局）的方式呈现出来的，而目前Android应用普遍以<strong>上下结构</strong>（即从上往下滑动为主，如：新闻阅读类App）或<strong>左右结构</strong>（即左右滑动为主，如：图片处理类App）为主（图层重叠类的暂不考虑，后续增加处理方式）。那么控件彼此间的位置是存在相互关系的，如上下或左右关系。当我们依次遍历控件时，一定是从根节点向子节点遍历，而对应到这两种结构上来说，我们一定是按从左到右或从上到下的顺序在遍历。有了这个结论，就可以进一步假设，如果我们获取到某个控件，其位置相对于我们已知控件的位置更靠左或上方，那么这个控件就是我们已遍历过的。<br>  对于静态的界面判断控件间相对位置非常简单，只需要判断坐标关系即可。<br><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/05/09/RCS20210509135511.png" alt="位置关系"></p>
+<p>  上图展示了除重叠以外，控件与控件所有可能的位置关系。从中间Z控件出发，先看看其余控件与其位置关系（假设左上坐标表示为x<sub>0</sub>,y<sub>0</sub>，右下坐标表示为x<sub>1</sub>,y<sub>1</sub>。<em>Andorid系统以屏幕左上为原点，x轴向右逐步增大，y轴向下逐步增大。</em>）</p>
+<ul>
+<li>z与a：<strong>x<sub>z0</sub> &gt; x<sub>a1</sub>; y<sub>z0</sub> &gt; y<sub>a1</sub></strong></li>
+<li>z与b： <strong>y<sub>z0</sub> &gt; y<sub>b1</sub></strong></li>
+<li>z与c：<strong>x<sub>z1</sub> &lt; x<sub>c0</sub>; y<sub>z0</sub> &gt; y<sub>c1</sub></strong></li>
+<li>z与d：<strong>x<sub>z0</sub> &gt; x<sub>d1</sub></strong></li>
+<li>z与e：<strong>x<sub>z1</sub> &lt; x<sub>e0</sub></strong></li>
+<li>z与f：<strong>x<sub>z0</sub> &gt; x<sub>f1</sub>; y<sub>z1</sub> &lt; y<sub>f0</sub></strong></li>
+<li>z与g：<strong>y<sub>z1</sub> &lt; y<sub>g0</sub></strong></li>
+<li>z与h：<strong>x<sub>z1</sub> &lt; x<sub>h0</sub>; y<sub>z1</sub> &lt; y<sub>h0</sub></strong><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2>  从上面可以看出一定的规律，只要满足任意一条关系，则可以找到其对应的位置关系（<em>紧挨着的情况未考虑，即某一个坐标相等的情况</em>）。从另一个角度讲，如果不满足以上关系的坐标，那么一定是<strong>相互重叠</strong>的关系。<br>  转换为代码<pre class="line-numbers language-py" data-language="py"><code class="language-py">def isOverlap(x,y,w,h,x1,y1,w1,h1):
+     return ((y1 + h1) &gt; y) and ((y + h) &gt; y1) and ((x1 + w1) &gt; x) and ((x + w) &gt; x1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>x,   y是左上角坐标</li>
+<li>w,  h是长宽，用来计算右下角坐标</li>
+</ul>
+<p>  为什么我们需要计算是否重叠呢？在<a class="link" target="_blank" rel="noopener" href="https://ray0728.gitee.io/2020/05/03/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E5%85%83%E7%B4%A0%E9%81%8D%E5%8E%86/">《基于图像识别的Android控件遍历》<i class="fas fa-external-link-alt"></i></a>中我采用的方法是控件区域截图后与之前的截图进行对比，如果相似则说明是同一个控件。这种方法存在一个缺陷，在开头时已提到。有了<strong>重叠</strong>判断方法，我们可以对之前的逻辑进行改进。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">for item in freeze().offspring():
+   attrs = self.getUseableAttrs(item)
+       if(attrs):
+          width = item.attr('size')[0] * screen_width
+          height = item.attr('size')[1] * screen_height
+          anchorX = item.attr('anchorPoint')[0] * width
+          anchorY = item.attr('anchorPoint')[1] * height
+          x0 = (item.attr('pos')[0] * screen_width) - anchorX
+          y0 = (item.attr('pos')[1] * screen_height) - anchorY
+          if(x0 &lt; 0 or y0 &lt; 0 or (y0 + height) &lt; last_py):
+             continue
+          if(last_width &gt; 0 and uic.isOverlap(last_px, last_py, last_width, last_height, x0, y0, width, height)):
+              continue
+           last_px = x0
+           last_py = y0
+           last_width = width
+           last_height = height
+           path = self.__saveCropScreen(screen, x0, y0, width, height, page, index)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  这样截图的区域一定是不重复且未遍历到的控件。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">width = item.attr('size')[0] * screen_width
+height = item.attr('size')[1] * screen_height
+anchorX = item.attr('anchorPoint')[0] * width
+anchorY = item.attr('anchorPoint')[1] * height
+x0 = (item.attr('pos')[0] * screen_width) - anchorX
+y0 = (item.attr('pos')[1] * screen_height) - anchorY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  这段代码是将控件的相对坐标转换为绝对坐标。<strong>Airtest通过属性获取到均是相对坐标</strong>，而截图需要的是屏幕绝对坐标，因此需要转换。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">if(x0 &lt; 0 or y0 &lt; 0 or (y0 + height) &lt; last_py):
+   continue
+if(last_width &gt; 0 and uic.isOverlap(last_px, last_py, last_width, last_height, x0, y0, width, height)):
+   continue<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  有了统一的绝对坐标，就可以做坐标对比了，如果坐标在屏幕外或控件上方则认为是已遍历过控件。同样如果是重叠的，则认为是同一个控件。然后我们就可以做区域控件截图了。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">def __saveCropScreen(self, screen, x, y, width, height, page, index):
+    cropscreen = aircv.crop_image(screen, [x,y,x+width,y+height])
+    path = self.datapath
+    for dir in page.split('-'):
+        path = os.path.join(path, dir)
+    if(not os.path.exists(path)):
+        os.makedirs(path)
+    path = os.path.join(path, '{}.jpg'.format(index))
+    aircv.imwrite(path, cropscreen, ST.SNAPSHOT_QUALITY, ST.IMAGE_MAXSIZE)
+    return path<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  当把当前屏幕的控件遍历完之后，就需要上下或左右滑动一下以判断是否还存在新的控件。但是滑动幅度过大，可能把未遍历到的控件滑过，滑动幅度过小，又可能无法显示足够多的区域来显示下一个控件。因此我们每次滑动仅从最后一个控件开始滑动最后一个控件高度。<u>但实际上这个距离是一个经验值，可能需要根据不同的应用做不一样的调整。</u></p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">self.poco.swipe([last_px/screen_width, last_py/screen_height], direction=[0, -last_height/screen_height])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  滑动之后需要用已发现最后一个控件的截图去新的屏幕上寻找其定位点，并以此更新<mark>last_px, last_py</mark>，以及一系列与最后一个控件相关的属性值。并像之前做过的那样，去判断新的控件相对于<mark>last控件</mark>的坐标关系。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">screen = G.DEVICE.snapshot(os.path.join(self.datapath, page,"snap.png"))
+if(last_path is not None):
+   pos = uic.air_match_in(last_path, screen)
+   if(pos is not None):
+      last_px = pos[0] - last_width * 0.5
+      last_py = pos[1] - last_height * 0.5
+   else:
+      last_px = 0
+      last_py = 0
+      last_width = 0
+      last_height = 0
+      if(last_px &lt; 0):
+         last_px = 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  <kbd>air_match_in</kbd>是基于Airtest封装的区域图片查找函数。代码如下：</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">def air_match_in(srcpath, screen):
+   template = Template(srcpath)
+   return template.match_in(screen)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>  那么什么时间结束遍历呢？当程序再也找不到新的控件时就可以了，为了防止某些特殊情况发生，可以再连续两次滑动后，均无新增控件发现再退出。完整代码如下：</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">from .confidence import UIConfidence as uic
+from airtest.core.api import *
+from airtest.aircv import *
+import os
+class UIManager:
+    def __init__(self, poco, datapath):
+        self.poco = poco
+        self.datapath = datapath
+        self.MAX_NOT_FOUND_TIMES = 2
+        if(not os.path.exists(datapath)):
+            os.makedirs(datapath)
+    def getUseableAttrs(self, item):
+        attrsArray = []
+        if(item.attr('touchable')):
+            attrsArray.append('touchable')
+        if(item.attr('touchable')):
+            attrsArray.append('touchable')
+        if(item.attr('editalbe')):
+            attrsArray.append('editalbe')
+        return attrsArray
+    def __getScreenSize(self):
+        width = G.DEVICE.display_info['width']
+        height = G.DEVICE.display_info['height']
+        if(height &gt; width):
+            return width,height
+        return height,width
+    def __saveCropScreen(self, screen, x, y, width, height, page, index):
+        cropscreen = aircv.crop_image(screen, [x,y,x+width,y+height])
+        path = self.datapath
+        for dir in page.split('-'):
+            path = os.path.join(path, dir)
+        if(not os.path.exists(path)):
+            os.makedirs(path)
+        path = os.path.join(path, '{}.jpg'.format(index))
+        aircv.imwrite(path, cropscreen, ST.SNAPSHOT_QUALITY, ST.IMAGE_MAXSIZE)
+        return path
+    
+    def parseLayout(self, page):
+        index = 1
+        last_px = 0
+        last_py = 0
+        last_width = 0
+        last_height = 0
+        last_path = None
+        screen_width, screen_height = self.__getScreenSize()
+        newItem = 0
+        not_found_times = 0
+        while(not_found_times &lt; self.MAX_NOT_FOUND_TIMES):
+            sleep(5)
+            newItem = 0
+            freeze = self.poco.freeze()
+            if(not os.path.exists(os.path.join(self.datapath, page))):
+                os.makedirs(os.path.join(self.datapath, page))
+            screen = G.DEVICE.snapshot(os.path.join(self.datapath, page,"snap.png"))
+            if(last_path is not None):
+                pos = uic.air_match_in(last_path, screen)
+                if(pos is not None):
+                    print('match in', pos, last_px, last_py, last_width, last_height)
+                    last_px = pos[0] - last_width * 0.5
+                    last_py = pos[1] - last_height * 0.5
+                else:
+                    last_px = 0
+                    last_py = 0
+                    last_width = 0
+                    last_height = 0
+                if(last_px &lt; 0):
+                    last_px = 0
+            for item in freeze().offspring():
+                attrs = self.getUseableAttrs(item)
+                if(attrs):
+                    width = item.attr('size')[0] * screen_width
+                    height = item.attr('size')[1] * screen_height
+                    if(width == 0 or height == 0):
+                        continue
+                    anchorX = item.attr('anchorPoint')[0] * width
+                    anchorY = item.attr('anchorPoint')[1] * height
+                    x0 = (item.attr('pos')[0] * screen_width) - anchorX
+                    y0 = (item.attr('pos')[1] * screen_height) - anchorY
+                    if(x0 &lt; 0 or y0 &lt; 0 or (y0 + height) &lt; last_py):
+                        continue
+                    if(last_width &gt; 0 and uic.isOverlap(last_px, last_py, last_width, last_height, x0, y0, width, height)):
+                        continue
+                    last_px = x0
+                    last_py = y0
+                    last_width = width
+                    last_height = height
+                    path = self.__saveCropScreen(screen, x0, y0, width, height, page, index)
+                    last_path = path
+                    not_found_times = -1
+                    # TODO 递归处理
+
+                    index += 1
+            if(not_found_times == -1):
+                not_found_times = 0
+            else:
+                not_found_times += )
+            self.poco.swipe([last_px/screen_width, last_py/screen_height], direction=[0, -last_height/screen_height])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  外部调用时，只需要调用<kbd>parseLayout</kbd>即可，代码中存在<kbd>TODO</kbd>，还缺少了递归遍历的处理部分，后续会继续更新相关代码。代码已归档至<a href="!https://gitee.com/ray0728/airtest-support-lib/tree/master">Gitee 代码仓库</a>。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：基于图像识别与位置关系的Android控件遍历方式</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2020-05-09 15:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2020/05/09/基于图像识别与位置关系的Android控件遍历方式/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Airtest/">#Airtest</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Python/">#Python</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">#图像识别</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/OpenCV/">#OpenCV</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/05/16/%E8%87%AA%E5%8A%A8%E9%81%8D%E5%8E%86UI%E6%8E%A7%E4%BB%B6/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">自动遍历UI控件</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/05/07/Docker%E9%83%A8%E7%BD%B2Hexo%E5%8F%91%E5%B8%83/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Docker + Git 部署Hexo发布</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

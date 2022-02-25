@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            利用爬虫生成二手房热力图 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">利用爬虫生成二手房热力图</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2021-07-04 23:00:00</span>
+        <span class="mobile">2021-07-04 23:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Selenium/">Selenium</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/selenium/">selenium</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  曾经在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/06/20/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">《搭建在线Selenium执行环境》<i class="fas fa-external-link-alt"></i></a>中树了一个Flag。</p>
+<blockquote>
+<p>可以通过将脚本上传至服务器上，让服务器自动挂机执行。一夜爬遍某乎也不是梦了（还不用担心妈妈让我关电脑了）</p>
+</blockquote>
+<p>  唉，Flag立得倒是挺轻松的，先看看我的小云已经有了那些功能吧，当前前端已能<a class="link" target="_blank" rel="noopener" href="https://code.ray0728.cn/">在线编辑并运行Python脚本<i class="fas fa-external-link-alt"></i></a>，后端可<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/21/%E6%90%AD%E5%BB%BASelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">通过Docker执行Selenium爬虫脚本<i class="fas fa-external-link-alt"></i></a>，似乎万事具备，只欠整合了。那今天就来填坑吧，看看怎么让服务器（云）挂机执行爬虫吧。</p>
+<span id="more"></span>
+
+<h3 id="定目标"><a href="#定目标" class="headerlink" title="定目标"></a>定目标</h3><p>  万事开头都得定目标，那我也定个小目标吧，刚好最近领导想买房子，但是害怕以后增值空间不大，毕竟现在伪口岸也挺多的。那就写个爬虫爬爬某家的二手房数据吧，用数据来看看到底那些区域最红火，那些区域有价无市。</p>
+<h3 id="写脚本"><a href="#写脚本" class="headerlink" title="写脚本"></a>写脚本</h3><p>  爬虫脚本编写很简单，这里就不展开了，简单来说就是打开、搜索、获取、点击、再搜索、再获取，并重复以上的操作，直到脚本的完成。</p>
+<p>  在编写脚本的时候，发现采集下来的数据量很大，而且频繁爬取某家的数据，担心我的小云被关进小黑屋 以后再也不能偷爬某家的数据了，因此需要将数据缓存起来，可以选择Redis也可以选择MySQL，而我选择了MariaDB（MySQL的分支版本）。这样完成的脚本大概就像下面这样子（仅主函数代码）：</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">driver = initDriver()
+helper = SQLHelper()
+helper.clearData()
+try:
+    for page in range(1,101): driver.get("https://{}.lianjia.com/ershoufang/pg{}".format(city, page))
+        cards = driver.find_elements_by_xpath('//div[@class="info clear"]')
+        for card in cards:
+            house = card.find_element_by_xpath('.//div[@class="flood"]/div[@class="positionInfo"]/a[1]').get_attribute('textContent')
+            region = card.find_element_by_xpath('.//div[@class="flood"]/div[@class="positionInfo"]/a[2]').get_attribute('textContent')
+            info = card.find_element_by_xpath('.//div[@class="address"]/div[@class="houseInfo"]').get_attribute('textContent').split("|")
+            price = card.find_element_by_xpath('.//div[@class="priceInfo"]/div[@class="totalPrice"]/span').get_attribute('textContent')
+            helper.insertNewHouse(region, house, info[1].strip().rstrip("平米"),info[4].strip(), price)
+        helper.autoUpdateHouseInfo()
+finally:
+    helper.close()
+    close(driver)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  如代码所述，采集后会将关键信息保存进数据库。脚本有了，那就该让脚本能自动运行起来了。</p>
+<h3 id="定时器Cron"><a href="#定时器Cron" class="headerlink" title="定时器Cron"></a>定时器Cron</h3><p>  要自动唤起脚本，可以用Shell定时脚本如：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sleep 3h;python yourscrip.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  在其基础上加上<code>while...do....done</code>就可以实现循环定时执行了。可是这个方法有个问题，就是睡眠的时间无法固定。</p>
+<p>  举个例子，我希望每1小时执行一次脚本，所以用了sleep 1h，可是脚本执行是需要时间的，也就是说第二次执行的时间相较于第一次执行的时间并不是只过去了1个小时，而是过去了1小时加上脚本执行的耗时，而这个时差会累积的，循环次数越多，则误差越大。</p>
+<p>  再者，我实际希望脚本能在凌晨3点执行，这样对服务器负载会轻一点。那么应该sleep多少呢？是不是一脸懵逼？综合以上两个原因，用sleep并不适合当前的场景。</p>
+<p>  Cron是Linux的定时任务执行服务，它会根据配置定时启动任务执行，类似Windows的定时任务。详细介绍可参考<a class="link" target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/linux-crontab-tasks.html">菜鸟教程<i class="fas fa-external-link-alt"></i></a>或自行百度。但是cron有一个巨大的坑，差不多有下图这么大，后面再单独写一个关于cron填坑实录吧😂。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/07/04/1625402697759.jpg" alt="天坑"></p>
+<p>  配置好cron，安置好准备好的脚本，就可以坐等小目标实现了。不过，好像差点什么。唉？唉？是不是还差个前端显示啊，不然爬完的数据还是数据啊，居然忘了这个这么重要的事情。</p>
+<h3 id="热力图"><a href="#热力图" class="headerlink" title="热力图"></a>热力图</h3><p>  前端怎么显示数据呢，柱状图？曲线？还是表格？哈哈哈，都不是，本人选择了最简单的热力图。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/07/04/b-ssl.duitang.jpg" alt="叉腰"></p>
+<p>  热力图选择高德地图来实现的，并复用了<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/06/24/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%EF%BC%88%E4%BA%8C%EF%BC%89/">《搭建在线Selenium执行环境》<i class="fas fa-external-link-alt"></i></a>中已实现的前后端数据通道。利用BootStrap4做了一个简单的前端界面，最终实现的效果还不错。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/07/04/Screenshot_20210704_214812.md.jpg" alt="热力图"></p>
+<p>  高德热力图有一个小坑，他官网上能搜到多个版本的热力图数据方式，但其实只有一种能成功。传入的数据一定要是数组结构，且每个点需要是哈希结构，js大致如下：</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> heatlayer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    heatlayer <span class="token operator">=</span> <span class="token function">initMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">loaddata</span><span class="token punctuation">(</span><span class="token parameter">type</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">let</span> wss <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebSocket</span><span class="token punctuation">(</span><span class="token string">'wss地址'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    wss<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> onCloseWss<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    wss<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'message'</span><span class="token punctuation">,</span> onMessageWss<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    wss<span class="token punctuation">.</span><span class="token function-variable function">onopen</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        wss<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'发起数据请求'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">onCloseWss</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">onMessageWss</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">let</span> hdata <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    heatlayer<span class="token punctuation">.</span><span class="token function">setDataSet</span><span class="token punctuation">(</span><span class="token punctuation">{</span>data<span class="token operator">:</span> hdata<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    heatlayer<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">initMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">let</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Map</span><span class="token punctuation">(</span><span class="token string">'map'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        resizeEnable<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        center<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">104.066593</span><span class="token punctuation">,</span><span class="token number">30.657789</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        zoom<span class="token operator">:</span> <span class="token number">11</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    map<span class="token punctuation">.</span><span class="token function">setMapStyle</span><span class="token punctuation">(</span><span class="token string">'amap://styles/d04f6e9640ff8cc28c800c925a2dd146'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isSupportCanvas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'The heat map is applicable only to browsers that support canvas. The browser you are using cannot use the heat map function. Please try another browser.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">let</span> heatlayer<span class="token punctuation">;</span>
+    map<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"AMap.Heatmap"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        heatlayer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMap<span class="token punctuation">.</span>Heatmap</span><span class="token punctuation">(</span>map<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            radius<span class="token operator">:</span> <span class="token number">25</span><span class="token punctuation">,</span>
+            opacity<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.8</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> heatlayer<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">isSupportCanvas</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> elem <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'canvas'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span><span class="token punctuation">(</span>elem<span class="token punctuation">.</span>getContext <span class="token operator">&amp;&amp;</span> elem<span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  前端点击按钮的时候，会触发loaddata函数，进一步通过websocket去后台获取JSON格式的数据，并转换为数组传递给Map。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>  最后从热力图上大致看出，果然天府新区在我大成都热得不是一点半点呢（当然滑动地铁，还能发现其他更有意思的事儿呢）。得赶紧向领导汇报下成果了，希望今年云服务器的钱可以报销了。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：利用爬虫生成二手房热力图</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2021-07-04 23:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2021/07/04/利用爬虫生成二手房热力图/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/selenium/">#selenium</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/python/">#python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/07/13/cron%E8%B6%9F%E5%9D%91%E4%B9%8B%E6%97%85/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">cron趟坑之旅</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/06/24/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%EF%BC%88%E4%BA%8C%EF%BC%89/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">搭建在线Selenium执行环境（二）</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">定目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">写脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8Cron"><span class="nav-number">3.</span> <span class="nav-text">定时器Cron</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%8A%9B%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">热力图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

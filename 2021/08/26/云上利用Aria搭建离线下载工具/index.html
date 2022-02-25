@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            云上利用Aria搭建离线下载工具 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">云上利用Aria搭建离线下载工具</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2021-08-26 22:00:00</span>
+        <span class="mobile">2021-08-26 22:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ffmpeg/">ffmpeg</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  有了一朵小云之后就忍不住去折腾。现在云上已部署静态Blog系统（<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/07/Docker%E9%83%A8%E7%BD%B2Hexo%E5%8F%91%E5%B8%83/">Hexo<i class="fas fa-external-link-alt"></i></a>），搭建有在线爬虫运行环境（<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/06/24/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%EF%BC%88%E4%BA%8C%EF%BC%89/">在线Selenium<i class="fas fa-external-link-alt"></i></a>）并且由此衍生出了一个简单的数据分析工具（<a class="link" href="chrome-distiller://333d6871-dfa7-465a-bc84-7c486d19aff8_ba804a3874d585d2ab84e323ab99a95998ad9564015a24aceee5cce7a9346121/?time=26841306&amp;url=https%3A%2F%2Fwww.ray0728.cn%2F2021%2F07%2F04%2F%25E5%2588%25A9%25E7%2594%25A8%25E7%2588%25AC%25E8%2599%25AB%25E7%2594%259F%25E6%2588%2590%25E4%25BA%258C%25E6%2589%258B%25E6%2588%25BF%25E7%2583%25AD%25E5%258A%259B%25E5%259B%25BE%2F">二手房热力图<i class="fas fa-external-link-alt"></i></a>），通过设置CRON（<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/07/13/cron%E8%B6%9F%E5%9D%91%E4%B9%8B%E6%97%85/">趟坑之旅<i class="fas fa-external-link-alt"></i></a>）任务，尽可能利用夜间空闲时段进行数据爬取与分析。看上去好像小云需要执行的任务蛮多了，可实际上还远远没到小云的极限呢。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/08/24/40538115164191463676_mh1629796396076.jpg" alt="尽管作"></p>
+<span id="more"></span>
+<p>  在很早很早以前，那个时候网络很精彩，想要的很多，但网速却很慢，通宵挂机下载也是常有的事儿。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/08/23/5b0988e595225.cdn.sohucs-1.jpg" alt="网络卡"></p>
+<p>  当时就想如果能有一个远程下载工具，随时随地想下就下该多好呀。后来各大下载工具也都搞出过VIP才可享受的离线下载功能，那个时候看着各位大V用着梦幻般的离线下载功能，着实令人羡慕啊。不过现在我也有自己的小云了，好像拥有离线下载也不是梦了，不过毕竟已经1202年了，实在无法满足只有一个简单的离线下载功了呢，特别是对离线下载的电影，我更希望能自动完成转码切片，并支持浏览器播放，这样晚上启动下片模式，白天就可以用手机偷偷的看了。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/08/24/i0.hdslb.jpg" alt="nice"></p>
+<h2 id="离线下载神器"><a href="#离线下载神器" class="headerlink" title="离线下载神器"></a>离线下载神器</h2><p>  论下载速度，确实某雷说第二，没人敢当第一，可是某雷的应用并不适合部署在云端，更别说企图部署在一个资深“白嫖党”业主的云上了。其实在开源世界里还有很多优秀的下载工具供选择，<strong>aria2</strong>就是其中一个。</p>
+<blockquote>
+<p>Aria2是一款开源下载工具，可帮助简化不同设备和服务器之间的下载过程。它支持磁力链接、BT种子、http等类型的文件下载，与迅雷及QQ旋风相比，Aria2有着优秀的性能及较低的资源占用,架构本身非常轻巧，通常只需要4兆字节（HTTP下载）到9兆字节（用于BitTorrent交互）之间。最重要的一点是Aria2完全免费！<em>from <a class="link" target="_blank" rel="noopener" href="http://aria2.baisheng999.com/">Aria2中文网<i class="fas fa-external-link-alt"></i></a></em></p>
+</blockquote>
+<p>  不过Aria2仅仅只是一个命令行的下载程序，类似wget命令，若想图形化管理还需要安装对应的web管理工具，官方提供的是<a class="link" target="_blank" rel="noopener" href="https://github.com/ziahamza/webui-aria2">WebUI<i class="fas fa-external-link-alt"></i></a>，可以访问其提供的<a class="link" target="_blank" rel="noopener" href="https://ziahamza.github.io/webui-aria2/">Demo<i class="fas fa-external-link-alt"></i></a></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/08/24/Screenshot_20210825_075336.jpg" alt="WebUI-aria2"></p>
+<p>  WebUI与aria2之间的关系类似C/S之间的关系，通过一个WebUI可以访问多个任意aria2，因此每个aria2都可以设置一个密钥，用来验证是否允许访问。</p>
+<p>  除了官方的WebUI之外，还有<a class="link" target="_blank" rel="noopener" href="https://github.com/mayswind/AriaNg">Aria-NG<i class="fas fa-external-link-alt"></i></a>也是挺受欢迎的三方管理工具。二者相比较起来并无太大的差异，毕竟最核心的下载功能是由Aria2提供，而非Web客户端。但是后来因为选择了三方封装的Aria2-pro，而选择了Aria-NG。</p>
+<h2 id="Aria2-Pro"><a href="#Aria2-Pro" class="headerlink" title="Aria2-Pro"></a>Aria2-Pro</h2><p>  Aria2-Pro严格来讲并不是比Aria2更强大的软件，而是由<a class="link" target="_blank" rel="noopener" href="https://github.com/P3TERX/aria2.conf">P3TREX大佬<i class="fas fa-external-link-alt"></i></a>针对实际网络环境做了配置优化，换句话来说是一个带有优化配置的Aria2。可别小看这个优化配置，Aria2虽然功能强大，可是配置不正确的话，也会罢工的。来看看大佬带给我们什么惊喜吧。</p>
+<blockquote>
+<ul>
+<li>BT 下载率高、速度快</li>
+<li>重启后不丢失任务进度、不重复下载</li>
+<li>删除正在下载的任务自动删除未完成的文件</li>
+<li>下载错误自动删除未完成的文件</li>
+<li>下载完成自动删除控制文件(.aria2后缀名文件)</li>
+<li>下载完成自动删除种子文件(.torrent后缀名文件)</li>
+<li>下载完成自动删除空目录</li>
+<li>下载完成自动移动文件到指定目录</li>
+<li>下载完成自动上传到 Google Drive 和 OneDrive 等网盘(RCLONE 联动功能)</li>
+<li>BT 下载完成自动清除垃圾文件(文件类型过滤功能)</li>
+<li>BT 下载完成自动清除小文件(文件大小过滤功能)</li>
+<li>一键自动更新 BT tracker，进一步加速 BT 下载</li>
+<li>有一定的防版权投诉、防迅雷吸血效果</li>
+<li>更好的 PT 下载支持</li>
+</ul>
+</blockquote>
+<p>  就问那一条特性不香了？除此之外还支持在下载完成后触发自定义脚本，这可就厉害了。让Aria2不再只是一个下载工具而可以变成智能网络中的一个节点。比如下载完成后自动根据文件属性进行分类，甚至做二次处理。</p>
+<h2 id="Docker容器化"><a href="#Docker容器化" class="headerlink" title="Docker容器化"></a>Docker容器化</h2><p>  小云运行的是CoreOS系统，自然一切都是以容器运行为第一要务。幸运的是P3TREX还提供了一个容器化的<a class="link" target="_blank" rel="noopener" href="https://github.com/P3TERX/Aria2-Pro-Docker">Aria2-Pro Docker<i class="fas fa-external-link-alt"></i></a></p>
+<blockquote>
+<p>A perfect Aria2 Docker image. Out of the box, just add download tasks and don’t need to think about anything else.</p>
+</blockquote>
+<p>  这个slogan简直太棒了，just…don’t…else.直白而霸气呢。哈哈哈哈，行了，不吹了，部署上试试吧。</p>
+<p>  由于Aria2-Pro提供了官方的<a class="link" target="_blank" rel="noopener" href="https://github.com/P3TERX/Aria2-Pro-Docker">Docker镜像<i class="fas fa-external-link-alt"></i></a>以及参数配置说明，整个部署过程没有难度可言，这里就不赘叙，参考相关文档说明即可。部署好之后配合WebUI或AriaNG客户端使用即可。以下是我目前正在使用的docker-compose，和官方的说明差别不大。</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">aria:
+    image: p3terx/aria2-pro
+    environment:
+      - PUID=500
+      - PGID=500
+      - UMASK_SET=022
+      - RPC_SECRET=&lt;密钥&gt;
+      - RPC_PORT=6800
+      - LISTEN_PORT=6888
+      - DISK_CACHE=64M
+      - IPV6_MODE=false
+      - UPDATE_TRACKERS=true
+      - CUSTOM_TRACKER_URL=
+    volumes:
+      - /home/core/data/aria2/conf:/config
+      - /home/core/downloads:/downloads
+    restart: always
+    networks:
+      - netaria
+    logging:
+      driver: json-file
+      options:
+        max-size: 1m
+  ariang:
+    image: p3terx/ariang
+    command: --port 6880
+    networks:
+      - netaria
+    logging:
+      driver: json-file
+      options:
+        max-size: 1m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  因为我有一个NGINX（同样是docker）专做端口转发，因此这里没有映射本地端口到aria容器（本地容器间端口可直接访问）。另外将下载目录映射到了本地，为其他容器共享下载数据。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><ul>
+<li>鉴权</li>
+</ul>
+<p>  首次使用Aria2的时候，不管用WebUI还是AriaNG都需要输入RPC密钥，这是唯一鉴别你是否具有访问权限的地方，因此请一定记牢且不要泄露RPC密钥。</p>
+<ul>
+<li>BT下载速度</li>
+</ul>
+<p>  对于BT下载资源获取很重要，提供资源的用户越多下载速度越快。目前有Peer、DHT、Tracker三种方式</p>
+<blockquote>
+<ul>
+<li>Peer：在你获得一个有效用户后才会起作用，Peer 会获取该用户客户端里的用户信息。</li>
+<li>DHT：相当于 Peer 的进阶，每个人都储存一部分 DHT 网络信息，需要的时候会通过该网络获得用户，然后再从该用户处获得更多的网络和用户，在连不上 Tracker 的时候很有效，但缺点是一开始是没有 DHT 网络的，必须要养一段时间（下载一些热门资源）才行。</li>
+<li>Tracker：它会追踪下载同一个资源的用户，帮助你与其他用户建立连接，让其他用户把文件上传给你（给你提供下载速度），而你又把下载好的文件上传给其他需要的人（给别人提供下载速度）。</li>
+</ul>
+</blockquote>
+<p>  Aria2Pro 会自动更新Tracker列表，所以为了能获得更好的下载体验，我们可以先选择一个用户数相对稳定的文件下载，以此来积累我们的DHT信息。</p>
+<h2 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h2><p>  有了离线下载工具，后面我们再来看看怎么配合aria2实现视频的自动转码切片并支持HLS在线播放吧。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：云上利用Aria搭建离线下载工具</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2021-08-26 22:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2021/08/26/云上利用Aria搭建离线下载工具/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/ffmpeg/">#ffmpeg</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/09/15/%E8%AE%A9%E5%B0%8F%E4%BA%91%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E5%9C%A8%E7%BA%BF%E6%92%AD%E6%94%BE/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">让小云支持视频在线播放</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/07/17/%E5%90%91%E7%9D%80%E4%BA%BA%E7%94%9F%E8%87%AA%E7%94%B1%E5%89%8D%E8%BF%9B%E4%B8%80%E5%B0%8F%E6%AD%A5/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">向着人生自由前进一小步</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E7%A5%9E%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">离线下载神器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aria2-Pro"><span class="nav-number">2.</span> <span class="nav-text">Aria2-Pro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%AE%B9%E5%99%A8%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">Docker容器化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C"><span class="nav-number">5.</span> <span class="nav-text">未完</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

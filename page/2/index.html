@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="active"
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/07/04/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E7%94%9F%E6%88%90%E4%BA%8C%E6%89%8B%E6%88%BF%E7%83%AD%E5%8A%9B%E5%9B%BE/">
+                        利用爬虫生成二手房热力图
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  曾经在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/06/20/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">《搭建在线Selenium执行环境》<i class="fas fa-external-link-alt"></i></a>中树了一个Flag。</p>
+<blockquote>
+<p>可以通过将脚本上传至服务器上，让服务器自动挂机执行。一夜爬遍某乎也不是梦了（还不用担心妈妈让我关电脑了）</p>
+</blockquote>
+<p>  唉，Flag立得倒是挺轻松的，先看看我的小云已经有了那些功能吧，当前前端已能<a class="link" target="_blank" rel="noopener" href="https://code.ray0728.cn/">在线编辑并运行Python脚本<i class="fas fa-external-link-alt"></i></a>，后端可<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/21/%E6%90%AD%E5%BB%BASelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">通过Docker执行Selenium爬虫脚本<i class="fas fa-external-link-alt"></i></a>，似乎万事具备，只欠整合了。那今天就来填坑吧，看看怎么让服务器（云）挂机执行爬虫吧。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Jul 04 2021 23:00:00 GMT+0000">2021-07-04</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/docker/">docker</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/selenium/">selenium</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/python/">python</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/07/04/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E7%94%9F%E6%88%90%E4%BA%8C%E6%89%8B%E6%88%BF%E7%83%AD%E5%8A%9B%E5%9B%BE/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/24/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%EF%BC%88%E4%BA%8C%EF%BC%89/">
+                        搭建在线Selenium执行环境（二）
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/06/20/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">《搭建在线Selenium执行环境（一）》<i class="fas fa-external-link-alt"></i></a>中描述了如何利用websocket和codemirror搭建一套Python远程执行环境，但是文章仅完成了前端与后端的数据通道，并没有让Python脚本真正的执行起来，那么今天就来实现后端实时执行这个关键需求。</p>
+<p>  要完成<strong>远程执行Python</strong>这个目标，至少需要完成以下几点：</p>
+<ol>
+<li>完整获取前端脚本文本内容（包括文本缩进格式）</li>
+<li>将执行结果完整返回至前端</li>
+<li>将错误信息完整返回至前端</li>
+<li>主机安全保障</li></ol>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 24 2021 10:30:00 GMT+0000">2021-06-24</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/docker/">docker</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/selenium/">selenium</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/python/">python</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/06/24/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%EF%BC%88%E4%BA%8C%EF%BC%89/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/20/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">
+                        搭建在线Selenium执行环境（一）
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  早先用Docker在云服务器上搭了一个<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/21/%E6%90%AD%E5%BB%BASelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">《Selenium 执行环境》<i class="fas fa-external-link-alt"></i></a>，可以通过将脚本上传至服务器上，让服务器自动挂机执行。一夜爬遍某乎也不是梦了（还不用担心妈妈让我关电脑了）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/06/20/5b0988e595225.cdn.sohucs.jpg" alt="从此走上人生巅峰"></p>
+<p>  但是这套环境有个最大的问题，脚本怎么上传呢？紧接着还有一个更大的问题，上传之后怎么自动触发执行呢？为了上传文件这么一件小事，难道还得搞个Apache？那多麻烦呀，而且我那朵小云可只有1核2G呢。还是想个更轻量的解决方案吧。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Jun 20 2021 22:30:00 GMT+0000">2021-06-20</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/CodeMirror/">CodeMirror</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/WebSocket/">WebSocket</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/06/20/%E6%90%AD%E5%BB%BA%E5%9C%A8%E7%BA%BFSelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/11/%E7%A6%BB%E7%BE%A4%E7%82%B9%E8%BF%87%E6%BB%A4/">
+                        过滤离群点让特征匹配更精确
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p> &amp;emsp在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/27/SIFT+KNN%E5%8A%A0%E6%8C%81%E4%B8%8B%E7%9A%84Android%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC/">《SIFT+KNN加持下的Android测试自动化脚本》<i class="fas fa-external-link-alt"></i></a>中介绍了利用特征点来快速匹配图形的方法。但是在实际使用中，特征点匹配的结果可能存在<strong>离群点</strong>，即某些特征点由于受环境的影响会远离大多数匹配上的特征点。下图展示了在Settings界面下特征匹配时出现的离群点（红框处）</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/06/10/935684c6dea20447da99307b1cdc8a11.md.jpg" alt="离群点"></p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Jun 11 2021 18:00:00 GMT+0000">2021-06-11</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Airtest/">Airtest</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/Python/">Python</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">图像识别</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/OpenCV/">OpenCV</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/06/11/%E7%A6%BB%E7%BE%A4%E7%82%B9%E8%BF%87%E6%BB%A4/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/03/Docker&Selenium%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0Gitee%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/">
+                        Docker + Selenium 自动刷新Gitee静态页面
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  之前在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/07/Docker%E9%83%A8%E7%BD%B2Hexo%E5%8F%91%E5%B8%83/">《Docker + Git 部署Hexo发布》<i class="fas fa-external-link-alt"></i></a>中留了一个关于页面刷新的小坑，主要针对<a class="link" target="_blank" rel="noopener" href="https://gitee.com/help/articles/4136">Gitee 静态页面（免费版）<i class="fas fa-external-link-alt"></i></a>需手动刷新页面这一问题。那么在我们搭建好<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/21/%E6%90%AD%E5%BB%BASelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">Selenium Docker环境<i class="fas fa-external-link-alt"></i></a>之后就可以开始尝试利用爬虫完成页面的自动刷新了。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 03 2021 22:00:00 GMT+0000">2021-06-03</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/docker/">docker</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/selenium/">selenium</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/python/">python</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/06/03/Docker&Selenium%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0Gitee%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/05/27/SIFT+KNN%E5%8A%A0%E6%8C%81%E4%B8%8B%E7%9A%84Android%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC/">
+                        SIFT+KNN加持下的Android测试自动化脚本
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  在之前的尝试（折腾）中 （参见<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2020/05/09/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/">《基于图像识别与位置关系的Android控件遍历方式》<i class="fas fa-external-link-alt"></i></a>），我尝试基于简单的图像比对技术，做了一个<u>没啥用的</u>Android App测试自动化脚本。但是该脚本存在识别率低，耗时长等诸多问题。而用Airtest自带的图像比对功能又极易找错控件（可能是我使用姿势不对）。因此我在Github上搜寻了很久能<strong>快速</strong>完成图像比对的算法。虽然找了很多但是效果却不是特别好，要么超级复杂（完全不知道在干什么），要么耗时非常长（最长的能到10分钟），所幸在Github上搜索的时候了解到不少之前都不曾听过的算法，比如SIFT、SURF等等。行吧，还是自己正面刚吧。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed May 27 2020 15:00:00 GMT+0000">2020-05-27</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Airtest/">Airtest</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/Python/">Python</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">图像识别</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/OpenCV/">OpenCV</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/05/27/SIFT+KNN%E5%8A%A0%E6%8C%81%E4%B8%8B%E7%9A%84Android%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/05/21/%E6%90%AD%E5%BB%BASelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">
+                        Docker 搭建Selenium执行环境
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  如果能用Docker搭建出一套Selenium执行环境，并部署在云端。当我们把脚本上传至云后，可以自动执行脚本（<strong>按需执行</strong>），而脚本执行结束后又能自动退出（<strong>不占用资源</strong>）。让我们小小的云能最大化利用起来，想想就很激动呢。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu May 21 2020 14:00:00 GMT+0000">2020-05-21</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/docker/">docker</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/selenium/">selenium</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/python/">python</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/05/21/%E6%90%AD%E5%BB%BASelenium%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/05/16/%E8%87%AA%E5%8A%A8%E9%81%8D%E5%8E%86UI%E6%8E%A7%E4%BB%B6/">
+                        自动遍历UI控件
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><video width="320" height="240" controls="" autoplay="">
+  <source src="http://pan.ray0728.cn/s/AE8RsZ8FG9gGCbw/download/%E8%87%AA%E5%8A%A8%E7%88%AC%E5%8F%96UI%E7%95%8C%E9%9D%A2.mp4" type="video/mp4">
+浏览器不支持 video 标签。
+  
+</video>
+
+<p>  为了实现<strong>测试自动化</strong>这一“伪命题”，经过不懈的努力（<em>折腾</em>），终于基于Airtest（其实关联倒也没那么大）做出来有那么一点意思的自动化脚本。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat May 16 2020 15:00:00 GMT+0000">2020-05-16</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Airtest/">Airtest</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/Python/">Python</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">图像识别</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/OpenCV/">OpenCV</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/05/16/%E8%87%AA%E5%8A%A8%E9%81%8D%E5%8E%86UI%E6%8E%A7%E4%BB%B6/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/05/09/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/">
+                        基于图像识别与位置关系的Android控件遍历方式
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>  在<a class="link" target="_blank" rel="noopener" href="https://ray0728.gitee.io/2020/05/03/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E5%85%83%E7%B4%A0%E9%81%8D%E5%8E%86/">《基于图像识别的Android控件遍历》<i class="fas fa-external-link-alt"></i></a>中描述了一种根据控件区域截图来遍历UI控件的方法，但是这种方法存在很大的缺陷，即无法准确区分相似度很大控件，如下图中的桌面壁纸、显示亮度与移动网络。<br><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/05/08/Screenshot_20210505_103757_com.android.settings_edit_56532789152822052830719968f71.jpg" alt="设置界面"></p>
+<p>  要提高准确度就需要引入更多的判断条件。这里尝试引入位置关系，来辅助识别。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat May 09 2020 15:00:00 GMT+0000">2020-05-09</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Airtest/">Airtest</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/Python/">Python</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">图像识别</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/OpenCV/">OpenCV</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/05/09/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2020/05/07/Docker%E9%83%A8%E7%BD%B2Hexo%E5%8F%91%E5%B8%83/">
+                        Docker + Git 部署Hexo发布
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>  现在各代码托管平台均提供了静态页面展示功能，可以利用其搭建自己的个人博客。而这样的好处有：</p>
+<ol>
+<li>不用自建服务器</li>
+<li>不用网络备案</li>
+<li>文档归档管理</li>
+<li>自主选择主题</li>
+</ol>
+<p>  当然也有它的不足：</p>
+<ol>
+<li>域名需按照特定的格式设置</li>
+<li>有诸多限制（如需自行寻找图床搭配使用）</li>
+</ol>
+<p>  不过总的来说作为个人博客基本够用了，关键是免费呢。</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu May 07 2020 22:00:00 GMT+0000">2020-05-07</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/docker/">docker</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/git/">git</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/hexo/">hexo</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/05/07/Docker%E9%83%A8%E7%BD%B2Hexo%E5%8F%91%E5%B8%83/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+        <a class="prev btn"
+           href="/"
+        >上一页</a>
+    
+
+    
+        <a class="next btn"
+           href="/page/3/"
+        >下一页</a>
+    
+</div>
+
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+</div>
+
+
+
+</body>
+</html>

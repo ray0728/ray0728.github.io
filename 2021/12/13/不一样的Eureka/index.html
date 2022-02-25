@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            不一样的服务发现Eureka |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">不一样的服务发现Eureka</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2021-12-13 09:00:00</span>
+        <span class="mobile">2021-12-13 09:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/spring/">spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/11/07/%E6%9C%89%E4%BA%86%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88/">《有了云服务器能干什么》<i class="fas fa-external-link-alt"></i></a>一文中曾讲到从小小云有限的资源中扒拉了一小块来折腾微服务，在连肝数日之后，终于有了基本的微服务雏形（有SSO、有权限控制、有跨服务器资源访问）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/12/08/SVID_20211208_084320_1.gif" alt="demo"></p>
+<p>  接下来会用一个系列来记录微服务折腾的过程。本文主要记录服务发现Eureka的折腾之路。</p>
+<span id="more"></span>
+<h2 id="不一样的Eureka"><a href="#不一样的Eureka" class="headerlink" title="不一样的Eureka"></a>不一样的Eureka</h2><p>  关于Eureka 的用法网上早已有海量的文章可查阅，所以这里不再赘叙。但是作为资源有限的小云使用，本就不可能运行太多的服务（硬件天花板限制），所以需要调整Eureka Server的配置方案，使其更符合个人小云使用。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/12/10/u26025630372476872673fm26fmtauto-1_edit_254572754679905.jpg" alt="we_are_different"></p>
+<h3 id="更改配置让刷新更快"><a href="#更改配置让刷新更快" class="headerlink" title="更改配置让刷新更快"></a>更改配置让刷新更快</h3><p>  我们都知道Eureka默认开启了自保护模式，这个模式很好很强大，就像王者荣耀一样，确实很好玩，可要是没日没夜撸太多，就变成亡者农药了，所以<strong>适度</strong>、<strong>适合</strong>才是最重要的。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/12/11/7164534473854260540.jpg" alt="适度游戏"></p>
+<h4 id="关闭自我保护模式"><a href="#关闭自我保护模式" class="headerlink" title="关闭自我保护模式"></a>关闭自我保护模式</h4><p>  作为一个单纯的私人小云，个人觉得没有必要使用Eureka自我保护模式。为什么这么说呢？从其所适合的场景就可以看出。</p>
+<blockquote>
+<p>当Eureka Server节点在短时间内丢失客户端心跳超过门限后，会进入自我保护模式。在该模式下Eureka Server会保持当前客户端的注册信息，即便在未收到客户端续订心跳的时候也不会移出该客户端，以防止因网络故障而非客户端故障引起的误删除事件发生。</p>
+</blockquote>
+<p>  将上述内容通过简单的例子转换一下，某天小R发现通过微信联系不上女神的时候，那么大概率是对方将小R移出了好友或已读不回（<strong>收不到续订心跳</strong>），如果此时小R够理智的话接下来要做的事应该是默默的从微信中删除女神的账号（<strong>删除无效客户端</strong>），并通过朋友圈向所有好友宣布已与女神再无关系（<strong>刷新缓存，更新客户端列表</strong>），然后等待新的女神向小R发送好友申请（<strong>新的客户端注册</strong>）。但要是某天小R发现大部分人都不能通过微信联系的时候（<strong>失联的客户端超过门限</strong>），就得考虑是不是自己的微信出问题了(<strong>网络问题或其他非客户端问题</strong>)，而不是把联系不上的好友都删除（<strong>自我保护，等待故障恢复</strong>）。</p>
+<p>  而我们小小云上运行的微服务数量基数小，一两个微服务出现异常就很容易超过Eureka自我保护的门限值，而此时更合理的处理方式是快速移出无效客户端信息，防止将流量引向已故障的服务上（<em>快速反馈502错误，减轻网关压力</em>），没必要进入自我保护模式等待故障恢复。</p>
+<p>  关闭自保护模式：<kbd>eureka.server.enable-self-preservation=false</kbd></p>
+<h4 id="快速更新"><a href="#快速更新" class="headerlink" title="快速更新"></a>快速更新</h4><p>  快速更新是指Eureka Server所维持的客户端信息快速更新，即当有客户端下线时，Eureka Server能立即更新客户端信息表。</p>
+<p>  那么首先得及时判断客户端是否下线，Eureka Server通过<kbd>eureka.server.renewal-threshold-update-interval-ms</kbd>来控制以什么样的频率去检测所有已注册客户端的心跳。该选项默认为15分钟，不过考虑到本人学艺不精，技不如人做出来的客户端质量拉胯，所以越早发现，才能越早治疗（手动重启），这里我修改为2分钟检测一次。</p>
+<p>  发现有异常客户端之后，就得抓紧将异常的客户端移出。而Eureka Server是通过<kbd>eureka.server.eviction-interval-timer-in-ms</kbd>控制以什么样的频率去移出已失效的客户端。该选项默认为60秒。当然和上面一样，我希望能更快完成无效客户端的移出动作，所以我修改为5秒。</p>
+<p>  Eureka Server内部有自己的数据缓存策略，这里不展开细讲。为了更快完成客户端列表的刷新，我们通过禁用ReadOnlyCache缓存来实现。<kbd>eureka.server.use-read-only-response-cache: false</kbd></p>
+<p>  服务端这样配置差不多就可以做到快速更新了，可是光服务端快是不行的，客户端也得跟上才行。而客户端最需要做的是“<strong>常联系，快退出</strong>”。</p>
+<p>  “常联系”是要客户端加快与服务端发送心跳的间隔，两次心跳间隔时间越长，服务端的反应就越慢，理论上从客户端出现问题到客户端信息被移出，最长时间就是心跳间隔时间。如果心跳间隔为10分钟，那么该客户端最长需要10分钟（此处实际还需加上服务端的检测间隔时间）后才会被移出。</p>
+<p>  “快退出”则是指客户端出现“失联”后，要让服务端快速、果断的移出该客户端，而不是磨磨蹭蹭拖半天。控制这一切的是由两个选项完成的。</p>
+<p><kbd>eureka.instance.lease-renewal-interval-in-seconds</kbd></p>
+<p><kbd>eureka.instance.lease-expiration-duration-in-seconds</kbd>。</p>
+<p>以下是完整配置yml</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">eureka: 
+  server: 
+    enable-self-preservation: false
+    renewal-threshold-update-interval-ms: 120000 
+    eviction-interval-timer-in-ms: 5000 
+    use-read-only-response-cache: false
+  instance: 
+    lease-expiration-duration-in-seconds: 10 
+    lease-renewal-interval-in-seconds: 5 
+  client: 
+    fetch-registry: true
+    register-with-eureka: true
+    service-url: defaultZone: ${discovery.server}/eureka<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="自定义页面直达关键信息"><a href="#自定义页面直达关键信息" class="headerlink" title="自定义页面直达关键信息"></a>自定义页面直达关键信息</h3><p>  Eureka Server自带了一个web查看页面，可通过该页面查看当前服务端的状态以及注册客户端的状态。原生页面的功能很好用，只是不太适合我的小云而已（毕竟有些功能我都不会用到，自然也就不关注了）。</p>
+<p>  对于小云上运行的微服务，我更关注的是各个注册的客户端状态是否正常、Eureka状态是否正常（小云资源有限，稍不留神就OOM Kill了）。所以需要自定义Eureka的页面，做到<strong>打开链接，直达关键信息</strong>。</p>
+<p>  关于Eureka自定义页面网上相关教程也挺多的，这里就不重复了。简单来讲，首先将<kbd>spring-cloud-netflix-eureka-server</kbd>包中templates.erueka目录拷贝至工程resources下，然后按需修改对应的4个ftlh文件即可。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/12/09/Screenshot_20211209_152448.jpg" alt="ui"></p>
+<h3 id="关于Docker环境下需注意事项"><a href="#关于Docker环境下需注意事项" class="headerlink" title="关于Docker环境下需注意事项"></a>关于Docker环境下需注意事项</h3><p>  当客户端向Eureka Server注册的时候，Eureka会在30秒内连续3次检测客户端的状态（健康检测），之后才会将该客户端信息刷新至客户端列表当中。而在Docker执行环境下，通常使用编排工具（如Docker-compose）将所有服务一起启动，虽然服务均已运行，但是仍有可能收到404错误（需等待30秒后再访问）。</p>
+<p>  客户端向Eureka Server注册时默认使用主机名进行注册，但是当该客户端在Docker中运行时，使用的主机名其实为Docker Container ID。如果是跨服务器访问则无法通过其查找到真正的客户端（DNS不知道注册使用的Docker Container ID所对应的IP地址），而如果仅使用<kbd>preferIpAddress</kbd>选项，虽然可用IP地址替换主机名完成注册，但不幸的是，所使用的IP为Docker Container IP，而非跨服务器所能访问的地址（一般需公网IP地址），所以依然不可被别的服务器使用。因此还需加上<kbd>eureka.instance.ip-address</kbd>，通过手动指定IP地址的方式，让客户端可达，这在后续记录中也会提到。</p>
+<p>本文涉及源码地址<a class="link" target="_blank" rel="noopener" href="https://gitee.com/ray0728/beta-discovery/">Gitee<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：不一样的服务发现Eureka</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2021-12-13 09:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2021/12/13/不一样的Eureka/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/spring/">#spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/01/13/SpringCloudConfig/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Spring Cloud配置服务</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/11/07/%E6%9C%89%E4%BA%86%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">有了云服务器可以做什么</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Eureka"><span class="nav-number">1.</span> <span class="nav-text">不一样的Eureka</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E9%85%8D%E7%BD%AE%E8%AE%A9%E5%88%B7%E6%96%B0%E6%9B%B4%E5%BF%AB"><span class="nav-number">1.1.</span> <span class="nav-text">更改配置让刷新更快</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">关闭自我保护模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%9B%B4%E6%96%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">快速更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E7%9B%B4%E8%BE%BE%E5%85%B3%E9%94%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">自定义页面直达关键信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EDocker%E7%8E%AF%E5%A2%83%E4%B8%8B%E9%9C%80%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.3.</span> <span class="nav-text">关于Docker环境下需注意事项</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

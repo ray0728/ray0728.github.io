@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            Spring Cloud配置服务 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Spring Cloud配置服务</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-01-13 11:46:00</span>
+        <span class="mobile">2022-01-13 11:46</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/spring/">spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  这一段时间都在小云上折腾微服务的事儿，一边愉快的加着新功能，一边苦逼的调试着参数。也许这就是痛并快乐着吧。所幸Spring  Cloud是一款优秀的服务框架。</p>
+<blockquote>
+<p>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。</p>
+</blockquote>
+<p>  最大的特点就是代码与配置相互独立，开箱即用（写入极少代码），通过更改配置就可以调整功能细节，我这么努力吹Spring Cloud，社区不考虑请我吃饭吗？哈哈哈哈</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/04/16655322702792683390.gif" alt="恰饭饭"></p>
+<span id="more"></span>
+
+<p>  虽然有如此优秀的框架，奈何本人学艺不精，技不如人，即便只加了极少的功能，也只能一遍又一遍的在云上不断的修改配置进行调试（为啥不在本地调好再上云呢？因为我买云就是为了随时随地想怎么玩就怎么玩呀😏）。可是为了验证一处小修改就重新编译一次，似乎又太重载了。一开始还只是一个微服务需要修改配置验证，觉得忍一忍也就算了，后来发展到需要多个微服务配合修改才能验证一个功能，就实在受不了了，于是乎决定上线<strong>配置服务器</strong>，一劳永逸的解决这个痛点。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/04/srchttp3A2F2Fgd2.alicdn.com2Fimgextra2Fi22F15855076372FT2kid7X2VXXXXXXXXX_21211585507637.gifreferhttp3A2F2Fgd2.alicdn.gif" alt="yahoo"></p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>  上述场景就是配置服务一个典型应用场景。通常软件开发的时候，首先会制作一个通用版本，以满足大部分场景使用，而落地到实际生产环境上又会有不同的配置参数（如：用户名、密码、超时时间等），这就促使开发人员将配置文件与功能逻辑相互独立保存（也就是常说的不要在代码中有硬编码行为）。</p>
+<p>  配置服务就是一个配置文件管理服务，通过Rest接口对外提供<strong>配置查询功能</strong>，并且支持<strong>多种存储方式（如本地文件、Git仓库等）</strong>。基于Spring Cloud有很多优秀的配置服务，如：Spring Config、Spring Consul、携程Apollo、蚂蚁金服disconf 等，因此给大伙的可选项还是挺多的。</p>
+<h2 id="Spring-Cloud-Config"><a href="#Spring-Cloud-Config" class="headerlink" title="Spring Cloud Config"></a>Spring Cloud Config</h2><p>  Spring Cloud Config的历史挺长，也算是Could框架中最早的几个成员之一，虽然现在更新较慢（似乎很长时间未更新了），不过其提供的服务已能满足我这样小白用户的需求。其秉承Spring Boot的优良传统，同样支持开箱即用。</p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><p>  既然Spring Cloud Config服务是基于Spring Boot的REST应用程序，因此我们可以将Spring Cloud配置服务嵌入在其它Spring Boot当中，当然也可以完全新建一个独立的Spring Cloud Config服务。</p>
+<p>  创建方式很简单，只需要在POM中引入<kbd>spring-cloud-config-server</kbd>即可。</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-config-server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  在入口函数中添加上Spring Cloud注解（<code>@EnableConfigServer</code>），即告诉Spring Cloud启动配置服务。</p>
+<p>  此时程序就拥有了提供配置服务的能力，不过还需要做更多的配置，以便告诉服务需要如何运行。相对来说从一个文件目录中检索配置信息是最简单的运行模式，而这个目录可以是本地目录，也可以是网络映射目录。</p>
+<h3 id="基于文件系统管理"><a href="#基于文件系统管理" class="headerlink" title="基于文件系统管理"></a>基于文件系统管理</h3><p>  基于文件系统管理的配置服务，只需要告诉Spring Cloud Config在哪个或哪几个目录搜索配置文件即可，在配置文件中添加如下信息：<br><code>spring.cloud.config.server.native.searchLocations: file:///mnt/config-repo/ms-gateway</code></p>
+<p>  file后面的路径需为服务可直接访问的目录，若需要多个则可用<strong>半角逗号（,）</strong>进行分隔。这句配置的意思是Spring Cloud Config服务以Native方式运行（文件系统），且在以下路径中（<code>file:///mnt/config-repo/ms-gateway</code>）匹配配置文件。</p>
+<ul>
+<li><strong>优点</strong></li>
+</ul>
+<p>  基于文件系统的配置服务操作简单，不需要提供额外的服务即可支持。</p>
+<ul>
+<li><strong>不足</strong></li>
+</ul>
+<p>  配置文件更新维护成本较高，这里的成本并不是指对配置文件本身的验证成本，而是文件系统维护的成本，如：如何确保文件系统的容错性（误删、误改等）。</p>
+<h3 id="基于Git管理"><a href="#基于Git管理" class="headerlink" title="基于Git管理"></a>基于Git管理</h3><p>  针对文件系统的不足，业内早就有各种解决方案，比如版本管理工具（如Git以及 SVN等）。而Spring Cloud Config就可以支持Git仓库。</p>
+<ul>
+<li><strong>优势</strong></li>
+</ul>
+<p>  对于文本类型的配置文件来说引入Git优势就太多了，可以跟踪修改记录、可以标记tag、可以分支管理、可以回退更改等等。而这一切带来的结果就是维护成本降低了。</p>
+<ul>
+<li><strong>不足</strong></li>
+</ul>
+<p>  非要说有啥不足，可能是需要git仓库以及懂得基本的git操作吧，否则还真没发现有啥不足的，有钱的站长可以自建gitlab私有仓库，像我这样没钱又爱瞎折腾的则可以选择github或者gitee做仓库。</p>
+<p>  同样除了在POM中指定Config依赖之外，还需要在配置文件中添加以下内容：</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">spring.cloud.config.server.git.uri=$GIT_SERVER_URI 
+spring.cloud.config.server.git.username=$GIT_USERNAME 
+spring.cloud.config.server.git.password=$GIT_PASSWORD 
+spring.cloud.config.server.git.search-paths=$GIT_SEARCH_PATH<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  相较于基于文件系统的配置，基于Git的则多了用户名、密码以及Git地址的信息。而<code>spring.cloud.config.server.git.search-paths</code>和之前的一样，用逗号区分多个目录。</p>
+<h3 id="配置查询"><a href="#配置查询" class="headerlink" title="配置查询"></a>配置查询</h3><p>  上文说过Spring Cloud Config是基于 Rest的应用程序，那么使用方式当然绕不开 Get/Post。可通过Get的方式从配置服务中查询某个配置文件内容，目前支持以下访问格式。</p>
+<blockquote>
+<ol>
+<li>/{name}-{profiles}.properties</li>
+<li>/{name}/{profiles}/{label:.}</li>
+<li>/{name}/{profiles:.[^-].}</li>
+<li>/{name}/{profiles}/{label:.}</li>
+<li>/{label}/{name}-{profiles}.properties</li>
+<li>/{name}-{profiles}.json</li>
+<li>/{label}/{name}-{profiles}.json</li>
+<li>/{label}/{name}-{profiles}.yaml</li>
+<li>/{label}/{name}-{profiles}.yml</li>
+<li>/{name}/{profiles:.[^-].}</li>
+<li>/{name}-{profiles}.yaml</li>
+<li>/{name}-{profiles}.yml</li>
+</ol>
+</blockquote>
+<p>  假设我们的配置服务器地址为<a href="https://localhost:8080，那么可以通过浏览器访问https://localhost:8080/ms-discovery/prod获取服务名为ms-discovery的配置信息。">https://localhost:8080，那么可以通过浏览器访问https://localhost:8080/ms-discovery/prod获取服务名为ms-discovery的配置信息。</a></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/11/Screenshot_20220111_084820.jpg" alt="example"></p>
+<p>  也可以直接访问文件名，如：<a class="link" target="_blank" rel="noopener" href="https://localhost:8080/ms-discovery-prod.yml">https://localhost:8080/ms-discovery-prod.yml<i class="fas fa-external-link-alt"></i></a></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/11/Screenshot_20220111_090449_com.huawei.browser_edit_404169521696659.jpg" alt="example"></p>
+<p>  二者的区别在于是否返回文件的Git信息，在第一种方案当中能看到多了label、version等内容，其中version对应 Git commit id。</p>
+<p>  上述查询的是prod属性配置文件，如果我们还有一个dev文件，则可以通过访问<a class="link" target="_blank" rel="noopener" href="https://localhost:8080/ms-discovery/dev%E6%88%96https://localhost:8080/ms-discovery-dev.yml%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2%E3%80%82%E6%AD%A4%E5%A4%84%E7%9A%84">https://localhost:8080/ms-discovery/dev或https://localhost:8080/ms-discovery-dev.yml进行查询。此处的<i class="fas fa-external-link-alt"></i></a> <em>prod</em> 以及 <em>dev</em> 对应配置文件的<strong>profiles</strong>。</p>
+<p>  服务端的配置差不多就这样了吧，现在再来看看客户端的配置。</p>
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>  和服务端一样首先在POM中加入配置服务的依赖。</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;
+   &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;
+&lt;/dependency&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  其次在配置文件中指明配置服务器的相关信息。同样以服务名为ms-discovery的程序为例，其配置如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">spring:
+  application:
+    name: ms-discovery
+  config:
+    import: optional:configserver:${server.config.uri}
+  cloud:
+    config:
+      name: ${spring.application.name}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  配置信息告诉应用程序三件事儿，第一件<strong>我是谁？</strong>、第二件<strong>配置在哪里？</strong>、第三件<strong>配置文件叫什么？</strong>，这里我将配置服务器地址以变量的方式传入（确保即便服务器地址发生变化，程序依然可访问到正确的地址）。其实除了配置服务器地址是通过变量传递的，程序运行时还有其他参数也是通过变量控制。完整运行命令如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">java $JAVA_OPTIONS \
+     -Dserver.tomcat.max-threads=$MAX_THREADS \
+     -Dserver.config.uri=$CONFIG_URI \
+     -Dspring.profiles.active=$PROFILE \
+     -Dserver.port=$PORT \
+     -Ddiscovery.server=$DISCOVERY_HOST \
+     -Dtrace=$DEBUG \
+     -jar /app.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  其中<code>$JAVA_OPTIONS</code>与<code>$MAX_THREADS</code>均为优化选项，用于调整程序运行时性能参数（以后有机会再做介绍）。而<code>$PROFILE</code>与<code>$CONFIG_URI</code>则是指明配置文件属性和服务器地址信息。在<strong>配置查询</strong>章节，我们已了解如何通过profiles参数去读取不同的配置内容。</p>
+<p>  正如本文开篇所述，在折腾微服务的时候常常需要调整配置信息以适配新加的功能特性，而已经走到这里的我们具备了配置和代码分离管理的能力，修改配置后只需要重启微服务即可让配置生效。</p>
+<p>  但是所谓“因为我懒，所以我要改变世界”，有没有什么办法不重启服务也让配置生效呢？那就得聊一聊配置刷新了。</p>
+<h3 id="配置刷新"><a href="#配置刷新" class="headerlink" title="配置刷新"></a>配置刷新</h3><p>  Spring Cloud Config通过添加注解<code>@RefreshScope</code>的方式，让应用的变量支持热更新（即通过访问应用的/refresh端点触发应用再次读取配置）。关于配置刷新网上有很多有深度且专业的代码解读，这里就不重复了。不过关于配置刷新我有另一种观点，在容器化流行的今天，也许重启一次容器会比热刷新配置效果更好。如本小站的每一个服务均运行在独立的Docker环境中，配合Docker-compose编排工具进行管理，如果有需要更新某个应用的配置，只需要执行<code>docker-compose restart xxxx</code>即可，既简单又高效。所以特性并没有谁更厉害，只有适合才是最重要的。</p>
+<h2 id="敏感信息保护"><a href="#敏感信息保护" class="headerlink" title="敏感信息保护"></a>敏感信息保护</h2><p>  在应用服务使用过程中不可避免会用到账号、密码这类敏感信息，如果放在配置文件中交给配置服务统一管理，又会担心信息的泄露（比如服务被攻击或者git仓库被破解），为了降低此类问题发生时带来的风险， Spring Cloud Config提供了一个重要的功能，即信息加密。</p>
+<h3 id="加-解密"><a href="#加-解密" class="headerlink" title="加/解密"></a>加/解密</h3><p>  我们在配置文件中以密文的形式写下敏感信息，并告诉配置服务这是密文请解密后使用。密文格式为<code>{cipher}密文</code>。</p>
+<p><strong>准备</strong></p>
+<p>  首先需要将执行环境中的JCE策略文件替换为无限制版本。</p>
+<blockquote>
+<ol>
+<li><strong>什么是JCE？</strong><br><br>JCE全称：Java Cryptography Extension，<br>默认的内置JCE策略文件是一个受限版本，主要体现在加/解密的长度受限。因此我们需要用官网上下载的非受限版本替换本地的对应文件。<br></li>
+<li><strong>为什么受限？</strong><br><br>这不是美国佬的祖传操作吗？什么技术无国界，都是骗鬼的<br></li>
+<li><strong>怎么替换？</strong><br><br>下载好之后替换至<code>/usr/lib/jvm/default-jvm/jre/lib/security/policy/unlimited</code>（实际目录以系统为准）即可。</li>
+</ol>
+</blockquote>
+<p>  然后配置一个只有你知道的密码，并将密码保存在执行机的环境变量当中。</p>
+<p><code>export ENCRYPT_KEY=这里是切勿泄露的密码哟</code></p>
+<p>  请按照执行机实际运行的系统设置环境变量。以环境变量执行的好处在于不用硬编码，特别是在以docker方式运行时，可随时变更密码。</p>
+<p><strong>加密</strong></p>
+<p>  将明文以<code>text/plain</code>类型，POST到<code>/encrypt</code>端点即可。得到的返回值就是密文。</p>
+<p>  即便是同一个明文，每次加密的结果都是不同的。这样可以有效防止彩虹表攻击。</p>
+<p><strong>解密</strong></p>
+<p>  将密文以<code>text/plain</code>类型，POST到<code>/decrypt</code>端点即可。得到的返回值就是明文。</p>
+<p>  本来可以通过postman体验的，不过我都折腾到这个份上了，那就整一个web界面呗，随时随地想玩就玩(快乐有时候就这么简单)。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/13/Screenshot_20220113_095848_com.huawei.browser.jpg" alt="example"></p>
+<p>  配置好之后再次通过配置服务访问配置文件就能看到密文被自动解密了。不过问题也来了，有时候我们并不想将解密后的明文就这样暴露在Rest接口返回值当中。那么我们可以告诉服务端，不要在服务端解密。而是由相关的应用程序自己对加密内容解密。</p>
+<h3 id="禁止解密"><a href="#禁止解密" class="headerlink" title="禁止解密"></a>禁止解密</h3><p>  在配置文件中设置<code>spring.cloud.config.server.encrypt.enabled: false</code>即可禁止服务端解密。同时在应用程序的执行环境中同样加入密码的环境变量。此时我们在访问配置查询端点，会发现密文未被解密。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/13/Screenshot_20220113_152551_com.huawei.browser_edit_499234655078507.jpg" alt="decrypt"></p>
+<p>  这样网络传输的时候就不用担心信息泄露了。</p>
+<p>  有了web界面固然用着很爽，但是万一被好心人访问到这个端点，岂不是所有密文都可以被破解了？看来还是得做一个鉴权呢。</p>
+<h2 id="资源服务器-权限管控"><a href="#资源服务器-权限管控" class="headerlink" title="资源服务器-权限管控"></a>资源服务器-权限管控</h2><p>  本文一开篇就提到Spring Cloud Config可加入任何Spring Cloud应用程序当中，那么自然也可以作为 Resource Server的一个功能组件。要使用Resource Server需要在 POM中加入相关依赖。</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-oauth2-resource-server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>  其次添加相应的权限要求信息，以便在访问到相应端点的时候，能被filter拦截并做出对应的判断。文本不打算介绍 Resource Server，留在以后单独分享吧。</p>
+<h2 id="番外篇-基于数据库的配置管理"><a href="#番外篇-基于数据库的配置管理" class="headerlink" title="番外篇-基于数据库的配置管理"></a>番外篇-基于数据库的配置管理</h2><p>  Spring拥有很棒的数据库操作能力，我们通过<code>@Entity</code>以及<code>@Repository</code>等注解可以很方便的生成Spring Data。而Spring Data提供了基本的数据库CRUD能力。</p>
+<p>  如果我们将配置信息保存在数据库当中，并且利用Spring Data和JPA框架，即可实现配置信息自动从数据库中读取并导入至应用程序当中，从而实现基于数据库的配置管理。</p>
+<p>  这样做有一个小问题，无法原生支持/refresh的配置刷新。不过在某些场景下，此方案也许也有用武之地吧。</p>
+<p>本文涉及的源码在<a class="link" target="_blank" rel="noopener" href="https://gitee.com/ray0728/ms-config">Gitee<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Spring Cloud配置服务</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2022-01-13 11:46:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2022/01/13/SpringCloudConfig/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/spring/">#spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/01/29/%E4%BA%91%E4%B8%8A%E7%BC%96%E8%AF%91%E5%99%A8/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">云上编译器 随时随地编代码</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/12/13/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Eureka/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">不一样的服务发现Eureka</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Config"><span class="nav-number">2.</span> <span class="nav-text">Spring Cloud Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">服务端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">基于文件系统管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EGit%E7%AE%A1%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">基于Git管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.3.</span> <span class="nav-text">配置查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">客户端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%88%B7%E6%96%B0"><span class="nav-number">4.1.</span> <span class="nav-text">配置刷新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E4%BF%9D%E6%8A%A4"><span class="nav-number">5.</span> <span class="nav-text">敏感信息保护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0-%E8%A7%A3%E5%AF%86"><span class="nav-number">5.1.</span> <span class="nav-text">加&#x2F;解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2%E8%A7%A3%E5%AF%86"><span class="nav-number">5.2.</span> <span class="nav-text">禁止解密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8-%E6%9D%83%E9%99%90%E7%AE%A1%E6%8E%A7"><span class="nav-number">6.</span> <span class="nav-text">资源服务器-权限管控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%95%AA%E5%A4%96%E7%AF%87-%E5%9F%BA%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">番外篇-基于数据库的配置管理</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

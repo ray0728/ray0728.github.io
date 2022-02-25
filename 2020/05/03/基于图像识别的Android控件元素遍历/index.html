@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            基于图像识别的Android控件遍历 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于图像识别的Android控件遍历</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2020-05-03 22:00:00</span>
+        <span class="mobile">2020-05-03 22:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">自动化测试</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Android/">Android</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Airtest/">Airtest</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Python/">Python</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">图像识别</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OpenCV/">OpenCV</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>  在追求测试自动化的道路上，我想让脚本具有一定的自适应能力，能自主识别出可操作（可点击、可长按、可编辑）的控件，并能自主控制脚本运行逻辑（依据策略自适应）。<br>  能识别出可操作控件则是这一目标的第一步。Airtest使用的POCO具有获取控件属性的作用，同时Airtest封装Opencv用于图像识别。因此这是一个实现该目标较理想的平台。</p>
+<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><p>  Android界面无论采用何种布局，都可以理解为是以图层的原理，逐层叠加出来的。所以利用POCO获取子节点的方法，从根节点开始依次遍历其所有子节点以及子节点的子节点（孙节点），并保留可操作（可点击、可长按、可编辑）的节点。如此即可获得想要的控件列表。</p>
+<span id="more"></span>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>  首先利用Airtest的截图功能<code>G.DEVICE.snapshot</code>获取当前屏幕截图（已启动需遍历的app）。然后通过<code>offspring</code>获取所有子节点，为了加速遍历速度，我们使用<code>freeze()</code>将界面元素冻结，以加速子节点的遍历。<br>  拿到子节点后通过获取其属性判断是否具有可操作性，在poco中获取属性方式很简单，通过attr即可。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">def getUseableAttrs(self, item):
+        attrsArray = []
+        if(item.attr('touchable')):
+            attrsArray.append('touchable')
+        if(item.attr('touchable')):
+            attrsArray.append('touchable')
+        if(item.attr('editalbe')):
+            attrsArray.append('editalbe')
+        return attrsArray
+def parseFreezeLayout(self, elementsArray):
+        sleep(5.0)
+        freeze = self.poco.freeze()
+        screen = G.DEVICE.snapshot(os.path.join(self.datapath, "snap.jpg"))
+        for item in freeze().offspring():
+            attrs = self.getUseableAttrs(item)
+            if(attrs):
+                 elementsArray.append(item)
+        return index<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  这样我们就可以快速获得当前屏幕上可操作的控件元素。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>  遍历获取到的控件仅仅是屏幕区域内的控件，屏幕外的控件是无法获取的。换句话讲上述方面仅能获取到当前显示区域内的控件，一旦需要滑动屏幕才可显示的内容则<strong>一概获取不到</strong>。而屏幕滑动之后（无论滑动距离有多小），界面即刷新，而offspring又会从根节点出发重新依次遍历当前显示区域内的所有控件。如果能去掉重复的控件，那么我们就可以通过滑动获取到APP当前页面的所有可操作控件了。<br>  首先看看通过attr是否可获取类似Android R.id这样全局唯一的ID。梦想很美好，现实很残酷。在某些APP中似乎并没有对每一个可操作控件定义不一样的ID，这导致无法通过ID进行控件的区分。那么控件上的文字描述呢？比如按钮上显示的确定或取消字样。这也仅对部分app有效，因为随着UX设计越来越人性化，某些功能的按钮多以图形来表示，如：添加，撤销，搜索等等。至此我们已无法单纯的利用控件基本属性作为去重的判断依据。<br>  那么人在页面刷新后又是如何判断那些控件是新出现的，那些是之前已有的呢？这里不深入探讨视觉神经的工作原理，我们假设一个不识字的小孩可以怎样识别出新增控件的。答案很简单，依靠图形对比，在我们假设的这个小孩眼里只会有“绿色背景带有加号图形的方块”或“红色背景上面有些文字的圆圈”，并以此作为显示区域前后两次刷新对比的依据，“绿色背景带有加号图形的方块”在之前已出现过，“红色的家伙”之前没有。<br>  有了这样的假设，我们就可以以图像识别为抓手，对原有代码进行升级改造了。</p>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>  思路很简单，之前的逻辑已可以识别出当前显示区域所有可操作控件，那么我们可以对每个控件做区域截图（也就是仅把控件截图保存）。并将截图与其它控件的截图做图像对比，若图像一致，则认为是同一个控件，否则为新增控件。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">def saveCropScreen(self, screen, x, y, width, height, page, index): 
+    cropscreen = aircv.crop_image(screen, [x,y,x+width,y+height]) 
+    path = self.datapath 
+    for dir in page.split('-'): 
+        path = os.path.join(path, dir) 
+    if(not os.path.exists(path)): 
+        os.makedirs(path) 
+    path = os.path.join(path, '{}.jpg'.format(index)) 
+    aircv.imwrite(path, cropscreen, ST.SNAPSHOT_QUALITY, ST.IMAGE_MAXSIZE) 
+return path<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  而图像识别则是通过计算两张图片的哈希值，然后通过计算出汉明距离，来判断2张图像是否一致。一共采用了3种哈希算法，这里就不深入探讨彼此的优劣了。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">import cv2
+import numpy as np
+import collections
+from airtest.core.api import *
+
+class UIConfidence:
+    @staticmethod
+    def flatten(x):
+        def iselement(e):
+            return not(isinstance(e, collections.Iterable) and not isinstance(e, str))
+        for el in x:
+            if(iselement(el)):
+                yield el
+            else:
+                yield from UIConfidence.flatten(el)
+    @staticmethod
+    def getAllHashValue(imgres):
+        return [UIConfidence.aHash(imgres), UIConfidence.dHash(imgres), UIConfidence.pHash(imgres)]
+    # 均值哈希算法
+    @staticmethod
+    def aHash(imgres):
+        img = cv2.imread(imgres)
+        # 缩放为8*8
+        img = cv2.resize(img, (8, 8), interpolation=cv2.INTER_CUBIC)
+        # 转换为灰度图
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # s为像素和初值为0，hash_str为hash值初值为''
+        s = 0
+        hash_str = ''
+        # 遍历累加求像素和
+        for i in range(8):
+            for j in range(8):
+                s = s + gray[i, j]
+        # 求平均灰度
+        avg = s / 64
+        # 灰度大于平均值为1相反为0生成图片的hash值
+        for i in range(8):
+            for j in range(8):
+                if gray[i, j] &gt; avg:
+                    hash_str = hash_str + '1'
+                else:
+                    hash_str = hash_str + '0'
+        return hash_str
+    # 差值感知算法
+    @staticmethod
+    def dHash(imgres):
+        img = cv2.imread(imgres)
+        # 缩放8*9
+        img = cv2.resize(img, (9, 8),interpolation=cv2.INTER_CUBIC)
+        # 转换灰度图
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        hash_str = ''
+        # 每行前一个像素大于后一个像素为1，相反为0，生成哈希
+        for i in range(8):
+            for j in range(8):
+                if gray[i, j] &gt; gray[i, j + 1]:
+                    hash_str = hash_str + '1'
+                else:
+                    hash_str = hash_str + '0'
+        return hash_str
+    # 感知哈希算法(pHash)
+    @staticmethod
+    def pHash(imgres):        
+        img = cv2.imread(imgres,0)
+        img = cv2.resize(img,(64,64), interpolation=cv2.INTER_CUBIC)
+        h,w=img.shape[:2]
+        vis0 = np.zeros((h,w),np.float32)
+        vis0[:h,:w] = img
+        vis1 = cv2.dct(cv2.dct(vis0))
+        vis1.resize(32,32)
+        img_list = list(UIConfidence.flatten(vis1.tolist()))
+        avg = sum(img_list)*1./len(img_list)
+        avg_list = ['0' if i&lt;avg else '1' for i in img_list]
+        return ''.join(['%x' % int(''.join(avg_list[x:x+4]),2) for x in range(0,32*32,4)])
+         # Hash值对比
+    @staticmethod
+    def cmpHash(hash1, hash2):
+        n = 0
+        # hash长度不同则返回-1代表传参出错
+        if len(hash1)!=len(hash2):
+            return -1
+        # 遍历判断
+        n = sum([ch1 != ch2 for ch1, ch2 in zip(hash1, hash2)])
+        print(n)
+        return n<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="遗留"><a href="#遗留" class="headerlink" title="遗留"></a>遗留</h2><p>  虽然引入了opencv这样的大佬，但实际运行的效果还是差强人意，在对比背景颜色接近的控件时，大概率识别为同一个控件。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/05/08/Screenshot_20210505_103757_com.android.settings_edit_56532789152822052830719968f71.jpg" alt="com.android.settings"></p>
+<p>  如上图中桌面壁纸以及显示亮度均会被识别为与移动网络很相似（汉明距离小于2）。由此可见仅依赖简单的图像识别，似乎还不能接近完美的工作，后面我将继续探索如何更准确识别控件的方法 。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：基于图像识别的Android控件遍历</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2020-05-03 22:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2020/05/03/基于图像识别的Android控件元素遍历/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Airtest/">#Airtest</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Python/">#Python</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">#图像识别</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/OpenCV/">#OpenCV</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/05/07/Docker%E9%83%A8%E7%BD%B2Hexo%E5%8F%91%E5%B8%83/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Docker + Git 部署Hexo发布</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91"><span class="nav-number">2.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">5.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%97%E7%95%99"><span class="nav-number">6.</span> <span class="nav-text">遗留</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

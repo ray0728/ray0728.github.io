@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            Spring cloud gatway使用Spring security适配Keycloak |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Spring cloud gatway使用Spring security适配Keycloak</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2021-10-27 18:00:00</span>
+        <span class="mobile">2021-10-27 18:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Spring/">Spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Spring/">Spring</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/keycloak/">keycloak</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  今日折腾之心又<strong>扑腾扑腾</strong>的支楞起来了，脑子一热想在小云上再搭一个授权服务中心和服务注册中心，这样从别的地方白嫖过来的服务器资源就可以和我的小云联动了。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/10/25/i0.hdslb.jpg" alt="白嫖怪"></p>
+<span id="more"></span>
+<p>  授权服务器嘛，不过就是OAUTH2呗，待我翻出2年前做的<a class="link" target="_blank" rel="noopener" href="https://gitee.com/ray0728/authserver?skip_mobile=true">Spring 代码<i class="fas fa-external-link-alt"></i></a>那还不分分钟搞定它吗？说干就干，翻出闲置已久差点被删掉的idea，新建spring cloud项目，嗯，一切都很顺利，“不愧是我呀”心里面正美着呢，“咦？怎么现在spring配置器里没有<strong>spring-cloud-starter-oauth2</strong>了呢？”“重开也没有呢？”“难道是…今日不宜编程？”带着一堆的疑问在网上一搜，我当时的心情是这样的：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/10/25/img2.doubanio.jpg" alt="哦豁"></p>
+<p>  为什么一个好端端的服务器框架说没就没了呢？后来在Spring官网找到这样的描述：</p>
+<blockquote>
+<p><strong>No Authorization Server Support</strong><br><br><br>In October 2012, RFC 6749, the OAuth 2.0 Authorization Framework, was published. Subsequently in May 2014, Spring Security OAuth released its 2.0.0 version with support for Authorization Server, Resource Server, and Client. This made a great deal of sense in the absence of OAuth 2.0 libraries and products.<br><br><br>Spring Security’s Authorization Server support was never a good fit. An Authorization Server requires a library to build a product. Spring Security, being a framework, is not in the business of building libraries or products. For example, we don’t have a JWT library, but instead we make Nimbus easy to use. And we don’t maintain our own SAML IdP, CAS or LDAP products.</p>
+</blockquote>
+<p>  大概意思就是说以前我们做了一件很厉害的事儿，不过现在我觉得快搞不动了，也不想维护之前的代码了，所以…大家自便吧。</p>
+<p>  这大概也算是开源的一种“自由”吧。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/10/25/x0.ifengimg.jpg" alt="就离谱"></p>
+<p>  怎么办呢？要么降级到springboot 2.1.4，要么寻找到替代方案。不过既然是折腾，那就折腾到底吧！经过一系列的折腾，成功入坑Keycloak，嗯，就是字面是入坑的意思，截止到此时此刻我依然在坑中躺平。</p>
+<h2 id="Keycloak"><a href="#Keycloak" class="headerlink" title="Keycloak"></a>Keycloak</h2><p>  Keycloak可不得了，他来自名门世家（RedHat），还记得当年接触的第一款Linux就是RedHat 5，还记得那个时候第一次使用多桌面，觉得好特么神奇，也好特么鸡肋的功能。在Keycloak的个人介绍里面赫然写着：</p>
+<blockquote>
+<p>Add authentication to applications and secure services with minimum fuss. No need to deal with storing users or authenticating users. It’s all available out of the box.<br><br>You’ll even get advanced features such as User Federation, Identity Brokering and Social Login.</p>
+</blockquote>
+<p>  就问给不给力，凡是现在流行的登录方式，能想到的都给打包了。而它的用法特简单，基本上做到了开箱即用。相关的用法可在网上搜索，这里就不啰嗦了。</p>
+<p>  但是如果使用的是docker镜像，Keycloak有一个<strong>巨大的坑</strong>，对！就我躺平的这个，关于这个坑后面单独再开一篇水文吧。关于Keycloak的配置，建议配置一个<strong>confidential</strong>的client，并作为下游Spring Oauth2的client-id以及secret。</p>
+<p>  接下来说回Spring如何适配Keycloak。</p>
+<h2 id="Spring-security"><a href="#Spring-security" class="headerlink" title="Spring security"></a>Spring security</h2><p>  其实适配方式挺简单的，毕竟Spring提供了现成的OAuth2客户端，当然也可以用Keycloak提供的Spring适配器。不过我不是特别建议这样做，因为我们希望网关仅仅是作为sso统一入口而已。那么它需要做到的无外乎是用户验证，而非授权判断。授权信息（token）的校验，应该由各个资源服务自行判断。对于用户验证，Spring security够用了。希望数据流转拓扑如下：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/10/26/Screenshot_20211026_225849.jpg" alt="数据流"></p>
+<ol>
+<li>用户资源访问请求首先达到Gateway（比如请求访问微服务1提供的资源）</li>
+<li>Gateway将用户登录信息（如用户名密码亦或者Client ID Secert等）送给验证服务（keycloak），用于用户身份验证。验证通过后验证服务会传回一个token，用于标识用户信息（如用户名，权限，角色等）。</li>
+<li>Gateway从discovery 服务中获取所有注册上来的微服务，从中找到需要使用的微服务</li>
+<li>Gateway将用户请求以及token路由至正确的微服务</li>
+<li>微服务获取到请求后，会去验证token是否合法并解析token中包含的用户信息，用于判断所请求的资源是否有权限访问。</li>
+</ol>
+<p>  对于最后一步，权限判断可放在Gateway，也可放在各微服务当中，他们实现的效果完全一样。但是个人还是倾向Gateway只做登录验证，权限验证交给资源服务（即后端的各个微服务）完成。原因如下：</p>
+<ol>
+<li>微服务架构本是为快速响应，快速变化而生的，即DeveOps。随着业务的发展，提供的资源越来越多样，那么需要的微服务也就越来越多。如果权限验证全由Gateway或前端控制，则意味着每更改一个微服务，Gateway或前端都可能需要更新，这和初衷是相违背的。</li>
+<li>每个微服务应该是独立的，解耦的模块，而权限控制完全属于其专属的业务逻辑，理应由其维护。</li>
+</ol>
+<h3 id="依赖（pom）"><a href="#依赖（pom）" class="headerlink" title="依赖（pom）"></a>依赖（pom）</h3><p>  首先来看看需要依赖那些Spring组件。</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-actuator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-oauth2-client<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-security<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-gateway<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-netflix-eureka-client<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  均采用Spring security相关组件，这样假如爬不出Keycloak的坑，更换别的授权服务，我的代码变动也会小一点吧。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/10/26/www.sina.jpg" alt="小机灵鬼"></p>
+<h3 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h3><p>  既然用到了Spring security，那么少不了关键的安全配置，让我们来瞅瞅这个“炒鸡复杂”的配置方法吧</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.context.annotation.Bean; 
+import org.springframework.context.annotation.Configuration; 
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity; 
+import org.springframework.security.config.web.server.ServerHttpSecurity; 
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository; 
+import org.springframework.security.web.server.SecurityWebFilterChain; 
+
+@Configuration 
+@EnableWebFluxSecurity 
+public class SecurityConfiguration { 
+
+    @Bean 
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http, ReactiveClientRegistrationRepository reactiveClientRegistrationRepository){ 
+        return http.authorizeExchange(exchanges -&gt; exchanges.anyExchange().authenticated()) 
+            .oauth2Login() 
+            .and() 
+            .build(); 
+    } 
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  没错，就只有这么一点即可实现sso登录验证。完全不用配置那些花里胡哨妖艳儿货。代码内容很简单，基本上算自注释了。</p>
+<h3 id="关键配置"><a href="#关键配置" class="headerlink" title="关键配置"></a>关键配置</h3><p>  这一步是真关键，在数据流程拓扑中，不仅要路由，还要带上token，如何带上呢？这就需要在配置中完成了。</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">security:
+  oauth2:
+    client:
+      provider:
+        keycloak:
+          token-uri: ${keycloak.hostname}/auth/realms/${keycloak.realm}/protocol/openid-connect/token
+          authorization-uri: ${keycloak.hostname}/auth/realms/${keycloak.realm}/protocol/openid-connect/auth
+          userinfo-uri: ${keycloak.hostname}/auth/realms/${keycloak.realm}/protocol/openid-connect/userinfo
+          user-name-attribute: preferred_username
+      registration:
+        beta:
+          provider: keycloak
+          client-id: ${keycloak.client-id}
+          client-secret: ${keycloak.client-secret}
+          authorization-grant-type: authorization_code
+          redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+cloud:
+  gateway:
+    default-filters:
+      - TokenRelay
+    discovery:
+      locator:
+        lower-case-service-id: true
+        enabled: true
+        filters:
+          - StripPrefix=1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  这里有两个重点配置内容，第一个是按照OAuth2方式，将相关信息配置给Spring OAuth2 Client。另一个是给路由配置TokenRelay filter。</p>
+<p>  OAuth2配置可以让我们正确与Keycloak交互，而路由filter则可以在成功登录后将token路由给下游微服务，以便下游进一步验证权限。</p>
+<h2 id="测试验证"><a href="#测试验证" class="headerlink" title="测试验证"></a>测试验证</h2><p>  可通过构造一个测试端点来验证Keycloak返回的token。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">@RestController
+@RequestMapping("/")
+public class testEndpoint {
+
+    @GetMapping("/")
+    public String home(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+        return String.format("Welcome %s&lt;br&gt; Your Access Token is:&lt;&gt;%s", authorizedClient.getPrincipalName(), authorizedClient.getAccessToken().getTokenValue());
+
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  运行起来后，可通过访问测试端点获取到token，大约是一长串的jwt字符，在<a class="link" target="_blank" rel="noopener" href="https://jwt.io/">Jwt.io<i class="fas fa-external-link-alt"></i></a>中可对字符解码，解码后的信息如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">  "iat": 1635174991,
+  "auth_time": 1635174688,
+  &lt;数据省略&gt;
+  "realm_access": {
+    "roles": [
+      "user-role", //包含分配的角色信息
+
+    ]
+  },
+  &lt;数据省略&gt;
+  "sid": "d789eba1-1461-44b6-bd50-660b4e5914ad",
+  "email_verified": true,
+  "name": "xxxxx" //在Keycloak中创建的用户名,
+  "preferred_username": "admin",
+  "given_name": "xxxx" //在Keycloak中创建的用户名,
+  "family_name": "admin",
+  "email": "xx@xxxxxxx" //在Keycloak中创建的用户邮件地址
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  可以看出token中已包含有用户相关信息，可进一步传递给下游，作为权限判断输入，符合上文中的预期。好了，用户登录有了，剩下的就是在资源服务器（即下游微服务）上实现权限验证了。</p>
+<p>  后面再单独写一章吧，因为资源服务器的实现略有不同。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Spring cloud gatway使用Spring security适配Keycloak</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2021-10-27 18:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2021/10/27/gatway使用Security适配Keycloak/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Spring/">#Spring</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/keycloak/">#keycloak</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/11/07/%E6%9C%89%E4%BA%86%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">有了云服务器可以做什么</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/09/15/%E8%AE%A9%E5%B0%8F%E4%BA%91%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E5%9C%A8%E7%BA%BF%E6%92%AD%E6%94%BE/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">让小云支持视频在线播放</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Keycloak"><span class="nav-number">1.</span> <span class="nav-text">Keycloak</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-security"><span class="nav-number">2.</span> <span class="nav-text">Spring security</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%EF%BC%88pom%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">依赖（pom）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">关键代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">关键配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">测试验证</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

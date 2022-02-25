@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            云上编译器 随时随地编代码 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">云上编译器 随时随地编代码</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-01-29 17:30:00</span>
+        <span class="mobile">2022-01-29 17:30</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/spring/">spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2022/01/13/SpringCloudConfig/">《Spring Cloud配置服务》<i class="fas fa-external-link-alt"></i></a>中提到本人在小云上瞎折腾，奈何学艺不精，折腾得挺费劲的，为了让折腾变得轻松点，上线了配置服务一事。其实除了折腾配置参数之外，代码的修改也是不可避免的事儿（虽然常常只是增删一句代码）。比如跨域访问资源的时候会被CSRF拦截，为了验证功能，就不得不加上<code>.csrf().disable()</code>试试效果。为了能进一步让我的折腾之路走得更从容，我开始寻找轻量化、免费的CI环境。</p>
+<p>  大约是几年前的时候吧，那时候用Github做代码仓库，就顺手白嫖了Travis CI的资源，他的用法很简单，在代码中加入.travis.yml配置文件（可参考<a class="link" target="_blank" rel="noopener" href="https://gitee.com/ray0728/authserver/blob/master/.travis.yml">这个<i class="fas fa-external-link-alt"></i></a>），这个文件作用是告诉Travis CI需要做什么，然后在Travis CI控制面板中添加Github账户公钥即可。当代码提交到Github代码仓库的master分支以后，会被自动编译成jar包，然后打包进容器，并进一步自动发布到 Docker hub上，而云端只需要更新容器即可实现部署（注1：其实Travis CI可以再调用云端接口，实现真正全自动部署，只不过当时购买的菊厂弹性服务器并未开放相关接口。注2：其实也有办法，Travis CI 推送完DockerHub之后，向Github指定仓库再提交一个issue，利用Github的WebHook向云端发起POST请求，从而触发Docker更新，只不过这条路也太折腾了。）<br>。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/26/u17511744642555063419fm26fmtauto.jpg" alt="travis ci"></p>
+<span id="more"></span>
+<h2 id="对标"><a href="#对标" class="headerlink" title="对标"></a>对标</h2><p>  现在小站长的代码仓库早已切换到Gitee， Travis CI又不支持小小的Gitee，没办法只好寻找替代品，不过好在可以以它作为标定。</p>
+<p>  能提供类似功能的产品很多，不过要么收费，要么太重载，比如Gitee Go再比如Jenkins。并不是说他们不够好，只不过不太适合我的应用场景罢了。</p>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ol>
+<li>能随时快速启动，结束后不常驻系统（毕竟小云资源有限）。</li>
+<li>能编译Spring Cloud工程，并打包为docker （不用发布到DockerHub，因为已经在云上了，直接运行即可）。</li>
+<li>不影响主机环境配置，保持主机稳定运行。</li>
+</ol>
+<h2 id="选型"><a href="#选型" class="headerlink" title="选型"></a>选型</h2><p>  好消息是Spring Boot现在支持直接编译为Docker了，可参考<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/duysh/article/details/106823211">《SpringBoot 构建 Docker 镜像的 3 种方式》<i class="fas fa-external-link-alt"></i></a>，但是他们都无法满足第三点需求，因为它们至少需要在主机搭好maven环境。那么maven环境会影响主机运行吗？我想可能性很低，但如果主机运行的不是常见系统，那么可能得费很大的劲来搭建了。不幸的是在下的小云就是这样的系统—<a class="link" target="_blank" rel="noopener" href="https://baike.baidu.com/item/CoreOS/9843813">CoreOS<i class="fas fa-external-link-alt"></i></a>，一个已停止更新并被收购的系统。🤣</p>
+<p>  要保持主机稳定，不能更改主机运行环境，我的主机上现在有什么呢？有docker、有git、有nginx，其他的啥都没有了。看来得利用已有的工具完成代码编译和容器打包呢。既然最终输出物为docker image，那么得在docker上找找突破口。</p>
+<h2 id="Docker-多阶段构建"><a href="#Docker-多阶段构建" class="headerlink" title="Docker 多阶段构建"></a>Docker 多阶段构建</h2><p>  Docker 17.05之后原生支持多阶段构建，什么是多阶段构建呢？请点<a class="link" target="_blank" rel="noopener" href="https://www.jianshu.com/p/410b0c5129b0">这里<i class="fas fa-external-link-alt"></i></a>。简单来说就是可以将docker build按需要划分为多个阶段，并控制各阶段的输入输出。那么我们可以将编译作为构建第一阶段，最终打包成镜像则作为第二阶段。因此我的Dockerfile可以这样写：</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">FROM registry.cn-hangzhou.aliyuncs.com/acs/maven:3-jdk-8 AS build-env
+LABEL stage=tmp-build
+
+ENV MY_HOME=/app
+RUN mkdir -p $MY_HOME
+WORKDIR $MY_HOME
+ADD pom.xml $MY_HOME
+
+RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "validate", "clean", "--fail-never"]
+ADD . $MY_HOME
+
+RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "-Dmaven.test.skip=true"]
+
+FROM openjdk:8-jre-alpine
+COPY --from=build-env /app/target/*.jar /app.jar
+ADD run.sh run.sh
+RUN chmod a+x run.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  第一阶段为名为build-env的编译阶段，它的目标是编译输出最终的jar包，因此这个阶段不用考虑docker镜像大小以及层级（反正都是中间产物）。即便如此，这个阶段也挺有意思的，首先选取带JDK的maven镜像，然后先加pom文件，并依据pom拉取需要的库文件。然后再加源码工程进行编译。这一阶段应该有可进一步提速的空间，不过就这样吧。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/06/26/fe14691e308e8353c137350a4ade9397.jpg" alt="又不是不能用"></p>
+<p>  第二阶段则是为了输出最终的image，因此选取了相对较小的alpine镜像。同时为了减少层级并提高可阅读性，我将容器执行入口封装进run.sh脚本(为了调试方便，并未添加自动执行，实际应用的时候用docker-compose指定run.sh即可）。</p>
+<p>  准备好Dockerfile之后，将其与Spring Cloud工程放在一起随代码更新即可。使用的时候执行<code>docker build -t &lt;imagename&gt; .</code>就行了。正常情况下可以看到这样的效果：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/29/Video_20220129_115028_493.gif" alt="编译"></p>
+<h3 id="附加效果"><a href="#附加效果" class="headerlink" title="附加效果"></a>附加效果</h3><p>  想想看在大家聚在一起喜气洋洋过年的时候，你默默的拿出手机，看似随意的点几下然后就轻轻的放在桌上，转身和大家云淡风轻的聊着家长里短。而屏幕上哗哗不停的显示，一定会引起所有人的好奇，最终会有人问你这是在干嘛，这个时候你一定要控制好情绪和声调，慢慢的说：“哦，这不美国佬的小飞机掉水里了嘛，今天刚好有空，我帮国家找一下”。是不是完成了一次完美装逼？正所谓无形装逼最为致命。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/29/u41202252121185342323fm253fmtautoapp120fJPEGw430h342.jpg" alt="装逼"></p>
+<h3 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h3><p>  多阶段构建确实很方便，合理利用能很好满足我的小需求，不过多阶段构建会产生的中间产物并不会自动删除，通过<code>docker images -a</code>可以看到有很多标记为none的image，不过也不用惊慌，执行一条shell命令即可批量删除：</p>
+<p><code>docker rmi $(docker images -a | grep none | awk '{print $3}')</code></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>  因为有云，很多以前做不到的事现在能做了。因为有云，资源利用率可以更高了。因为有云，便携设备的作用以及边界被扩展了。因为有云，各种想象正在逐渐变为现实。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/01/29/IMG_20220129_123920.md.jpg" alt="云"></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：云上编译器 随时随地编代码</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2022-01-29 17:30:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2022/01/29/云上编译器/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/spring/">#spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/02/25/python_photo_importer/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">基于Python的相片导入工具</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/01/13/SpringCloudConfig/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Spring Cloud配置服务</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">对标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">需求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E5%A4%9A%E9%98%B6%E6%AE%B5%E6%9E%84%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">Docker 多阶段构建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E6%95%88%E6%9E%9C"><span class="nav-number">3.1.</span> <span class="nav-text">附加效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.</span> <span class="nav-text">遗留问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

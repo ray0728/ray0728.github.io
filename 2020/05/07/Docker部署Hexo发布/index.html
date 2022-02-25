@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            Docker + Git 部署Hexo发布 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Docker + Git 部署Hexo发布</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2020-05-07 22:00:00</span>
+        <span class="mobile">2020-05-07 22:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/git/">git</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/hexo/">hexo</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  现在各代码托管平台均提供了静态页面展示功能，可以利用其搭建自己的个人博客。而这样的好处有：</p>
+<ol>
+<li>不用自建服务器</li>
+<li>不用网络备案</li>
+<li>文档归档管理</li>
+<li>自主选择主题</li>
+</ol>
+<p>  当然也有它的不足：</p>
+<ol>
+<li>域名需按照特定的格式设置</li>
+<li>有诸多限制（如需自行寻找图床搭配使用）</li>
+</ol>
+<p>  不过总的来说作为个人博客基本够用了，关键是免费呢。</p>
+<span id="more"></span>
+<h2 id="诉求"><a href="#诉求" class="headerlink" title="诉求"></a>诉求</h2><p>  如果为了向博客发布文章，还需要投入专门的时间在电脑上操作，甚至要部署一套Hexo环境的话，那么在时间碎片化严重的今天将显得非常的不实用。因此我们可以考虑利用docker，封装一套hexo环境。让其支持自动发布功能，并根据实际情况部署在云或个人电脑上（通过简单的脚本实现一键部署）。这样主要的精力就可以投入在内容创作上，充分利用各种碎片时间。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>  大致设计了一下，期望中应该有两条业务流。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/05/08/RCS20210507185144d0fc77fd6d8df521.png" alt="业务流设计"></p>
+<ul>
+<li><strong>文章编辑流</strong><br>该业务流重点关注碎片化编写的内容可实时保存，最好有云端存储，这样方便在任何时候、任何地点、任何环境下都可继续编写。</li>
+<li><strong>文章发布流</strong><br>该业务流重点关注快速发布，且不受主机环境影响。</li>
+</ul>
+<h2 id="部分实现"><a href="#部分实现" class="headerlink" title="部分实现"></a>部分实现</h2><p>  本文仅针对日志发布业务流中，一键发布至Git仓库做详细描述。以下选择的是Gitee平台，相比较GitHub，除了不支持自动刷新页面以外，Gitee具有<strong>国内更快访问速度</strong>这一决定性的优势，想想看，如果打开你的博客需要2分钟才加载完成，又会有多少人愿意等待这2分钟呢？<br>  首先在<kbd>Hexo配置文件(_config.yml)</kbd>中配置好deploy的仓库地址，建议选择SSH方式部署，这样可以做到免登陆验证。</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">deploy:
+  type: git
+  repo: git@gitee.com:yourname/yourname.git
+  branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  利用SSH上传的好处是可以免登陆，减少与用户的交互输入，但是缺点是首次上传时需要手动输入yes。后面我们也会提到这一问题。当然其余需要配置的信息，如：标题、主题、目录结构等等信息，若有需要也请一并在<kbd>Hexo主配置文件</kbd>中修改或添加，这里就不详细描述了。关于Hexo配置信息，请参考<a href="!https://hexo.io/zh-cn/docs/configuration">这里</a>。</p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>  这里不再描述如何搭建Docker环境，相信在网上能找到很多相关的指导，下面详细介绍如何构建<strong>支持自动发布Hexo的Docker镜像</strong>。我们的目的很明确，这个镜像不需要做特别复杂的工作，只需要有node、ssh、hexo即可，因此选择以alpine作为基础镜像环境，因为它足够小。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">FROM node:14-alpine
+WORKDIR /var/www/hexo
+
+RUN echo "Asia/Shanghai" &gt; /etc/timezone \
+    &amp;&amp; echo "https://mirrors.aliyun.com/alpine/v3.9/main/" &gt; /etc/apk/repositories  \
+    &amp;&amp; npm config set registry https://registry.npm.taobao.org \
+    &amp;&amp; apk add --no-cache git \
+    &amp;&amp; apk add --no-cache openssh-client \
+    &amp;&amp; npm install hexo-cli -g \
+    &amp;&amp; hexo init \
+    &amp;&amp; npm install hexo-renderer-swig \
+    &amp;&amp; npm install \
+    &amp;&amp; npm install hexo-deployer-git --save \
+    &amp;&amp; rm -rf source themes \
+    &amp;&amp; git config --global user.email "yourname@yourmail" \
+    &amp;&amp; git config --global user.name "yourname" \
+    &amp;&amp; ssh-keygen -t RSA -C "hexo@docker.com" -P "" -N "" -f /root/.ssh/id_rsa \
+    &amp;&amp; echo "StrictHostKeyChecking no" &gt;&gt; /etc/ssh/ssh_config \
+    &amp;&amp; cat /root/.ssh/id_rsa.pub
+ADD themes ./themes
+ADD _config.yml ./<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  <kbd>WORKDIR</kbd>指明后以后该镜像在运行的时候所使用的工作目录，hexo环境以及日志目录都将在这里。然后依次安装git、openssh(<strong>不需要SSH服务端</strong>)、hexo以及hexo发布插件。这里我使用的主题是Next 5，而最新的hexo移除了swing，所以多安装了<kbd>hexo-renderer-swig</kbd>，<em>可根据自己的需要增删软件</em>。</p>
+<blockquote>
+<p>rm -rf source themes</p>
+</blockquote>
+<p>  从hexo环境中移除source以及thems，因为我们需要用自己的文章以及主题环境去替代默认生成的内容。<br>  在完成<kbd>hexo init</kbd>以及各种软件安装之后，还需要对环境做相关的初始化，初始化动作确实可以放在container之后再做，而不需要在镜像中完成，但是前文提到希望使用SSH进行文章发布，而container并不能保证每次container中生成的公私钥都一样（当然确保每次使用同一个container的话也不是不行，但是为了确保发布的准确性，就需要首先使用<kbd>hexo clean</kbd>再进行编译，或者使用<kbd>hexo g -f -d</kbd>)，所以为了方便以后的工作，我们需要将ssh的公私钥固定下来。初始化的动作主要有：</p>
+<ul>
+<li>初始化git配置</li>
+<li>初始化RSA公私钥<blockquote>
+<p>echo “StrictHostKeyChecking no” &gt;&gt; /etc/ssh/ssh_config </p>
+</blockquote>
+</li>
+</ul>
+<p>  这步很关键，它可以让SSH首次连接时跳过检查，即不要求与用户交互。这样可以确保首次执行<kbd>hexo g -d</kbd>时不会要求输入yes。</p>
+<blockquote>
+<p>ADD themes ./themes<br> ADD _config.yml ./</p>
+</blockquote>
+<p>  使用修改好的<kbd>hexo 主配置文件</kbd>以及主题内容。其实在实际业务中，主题配置可能发生变化，因此这里即便不拷贝主题也没有关系，在后面将展示通过参数的形式动态指定主题。<br>  至此Docker构造脚本准备好了，将上述内容保存为<kbd>Dockerfile</kbd>，并执行Docker build。根据网络情况，稍等一段时间即可完成构建。在构建的输出中一定发现打印出了一段长长的Base64代码。如：</p>
+<pre class="line-numbers language-none"><code class="language-none">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSU
+GPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3
+Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA
+t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
+mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
+NrRFi9wrf+M7Q== schacon@xxx.xxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  请记下这段代码，后续要用到。这段代码是Dockerfile中打印的</p>
+<blockquote>
+<p>cat /root/.ssh/id_rsa.pub</p>
+</blockquote>
+<p>  这段代码即是SSH公钥，请根据静态页面供应商的帮助，将公钥添加进仓库的SSH公钥管理当中，如Gitee中的<a class="link" target="_blank" rel="noopener" href="https://gitee.com/help/articles/4191">相关帮助<i class="fas fa-external-link-alt"></i></a>，GitHub的添加方式大同小异。<br>  好了，到这里我们有了一个hexo环境的docker，下面介绍如何使用这个docker。</p>
+<h3 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h3><p>  其实并不是一定要用docker-compose, 只使用docker也可以达到类似的效果。在这个场景下使用docker-compose唯一的好处是，不需要手工输入太多的参数。</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">hexo:
+  image: your-docker-name
+  volumes:
+    - /your-hexo/source:/var/www/hexo/source
+    - /your-hexo/themes:/var/www/hexo/themes
+  command: hexo g -d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  简单来讲就是将source、themes动态挂载至container 对应的目录上。然后执行hexo发布命令即可。上面也讲到其实可以用docker命令代替，那么代替的命令如下：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --rm -v /your-hexo/source:/var/www/hexo/source -v /your-hexo/themes:/var/www/hexo/themes hexo-git hexo g -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  <kbd>--rm</kbd>是指当container退出后自动销毁。如果不希望container销毁，那么请勿使用该参数。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>  现在剩下的最后一个问题是，这个docker应该部署在什么地方。这个就看自己的环境以及习惯吧，可以放在私人云ECS上，也可放在家里的电脑上，需要用的时候执行一下<kbd>docker-compose up</kbd>或者上面的docker命令即可。当然这仅仅是最初规划两条业务流中很小的一部分。剩下的以后再慢慢补充和完善吧。至少目前可满足我一小部分的需求了。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Docker + Git 部署Hexo发布</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2020-05-07 22:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2020/05/07/Docker部署Hexo发布/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/git/">#git</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/hexo/">#hexo</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/05/09/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">基于图像识别与位置关系的Android控件遍历方式</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/05/03/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E7%9A%84Android%E6%8E%A7%E4%BB%B6%E5%85%83%E7%B4%A0%E9%81%8D%E5%8E%86/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">基于图像识别的Android控件遍历</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%89%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">诉求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">部分实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">3.1.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose"><span class="nav-number">3.2.</span> <span class="nav-text">docker-compose</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

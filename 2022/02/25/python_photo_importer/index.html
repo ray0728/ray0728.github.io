@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            基于Python的相片导入工具 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">基于Python的相片导入工具</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-02-25 11:30:00</span>
+        <span class="mobile">2022-02-25 11:30</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Python/">Python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  最近没顾上继续折腾 Spring Cloud，而是和 Python 相爱相杀。唉，一开始还小瞧了小小的 Python，没想到还真费了我不少劲呢，前前后后差不多搞了快 2 周，做出来的东西才稍微像那么回事。</p>
+<span id="more"></span>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>  最近我的小手机老是提示存储空间不足，有时候连拍照都提示失败。以前也遇到过这样的情况，作为一名老司机，一般会找几个不怎么用的 APP 删掉，这样就可以腾出空间了，可最近这招似乎不太灵了。是的，就是下面这种情况。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/20/9e31678cgy1fwkt1owfvuj20xc0s0429.jpg" alt="9e31678cgy1fwkt1owfvuj20xc0s0429.jpg"></p>
+<p>  后来仔细检查了一遍发现原来是相册太大了，整整有 80 多个 G。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/22/Screenshot_20220222_082328_com.huawei.systemmanager_edit_68467352572885.jpg" alt="dcim"></p>
+<p>　　唉，至从有了高像素摄像头之后，越来越多的照片舍不得删掉呀。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/20/OIP-C.jpg"></p>
+<p>  可现在没办法了，既然舍不得删掉，那就导出到电脑上吧。首先上场的是我的主力台式老爷机（拥有一颗二代i3处理器），搭载优秀的 Linux 操作系统（不需要到处找激活码），使用网上比较流行的 shotwell 进行照片导入，界面差不多就像下面这样。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/20/import.png" alt="import.png"></p>
+<p>　　shotwell 会自动按照片创建的时间导入到指定目录下。只要能「连上手机」，操作也是相当的简单，不过要想连上手机似乎就有点困难了，比如会出现这样的错误提示。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/23/2022-02-23-22-48-35-.png" alt="error"></p>
+<p>　　既然不能直接从设备导入照片，那就换个角度，从文件夹里导入就好了嘛，不成想自己还是太单纯了。经过漫长的等待后又再次弹框。</p>
+<p>（此处假装有图片）</p>
+<p>　　唉，行。可能是我的小手机不配高冷的 Linux 呢，那我换个接地气的 Windows 试试看呢？拿出尘封多年的笔记本，连上小手机，选择照片导入。看着熟悉的文件拷贝窗口，不禁感叹到，还是 Windows 懂生活啊。</p>
+<p>　　哎？哎！怎么又报错了！看来大厂的软件也不咋滴嘛。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/22/v2-c039a1ddc57a55115a539df75ca06b69_b_edit_69941486574223.png" alt="出错"></p>
+<p>　　究竟是手机的矫情，还是电脑的假正经，我是没想明白的，总之他俩就是合不到一块儿。</p>
+<p>　　不就是文件拷贝吗？咋这么难呢？实在不行那就自己动手咯。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/22/u23320009453737923227fm253fmtautoapp138fJPEGw500h309.jpg" alt="动手"></p>
+<h2 id="自己动手，丰衣足食"><a href="#自己动手，丰衣足食" class="headerlink" title="自己动手，丰衣足食"></a>自己动手，丰衣足食</h2><p>　　老规矩，先看最终效果图，觉得效果还凑合，咱再接着慢慢聊（毕竟后面的废话还挺多）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/20/2022-02-20-22-52-36-.png" alt="2022-02-20-22-52-36-.png"></p>
+<p>　　这是一个运行在终端上的 Python 脚本，为什么选 Python？因为我觉得小小的照片导入功能，不就是递归拷贝吗？Python 足矣！</p>
+<h3 id="初代方案"><a href="#初代方案" class="headerlink" title="初代方案"></a>初代方案</h3><p>　　方案其实挺简单的，按如下步骤执行即可实现照片导入。</p>
+<ol>
+<li>递归遍历指定目录。</li>
+<li>若遍历到的是文件且是指定文件类型则获取其 MD5 值，否则跳过该文件。</li>
+<li>在数据库中查找刚刚获取的 MD5 值，若能找到则跳过，继续执行第二步。</li>
+<li>不能找到说明这是一个新文件，那么获取其元数据（分辨率、地理信息等）</li>
+<li>将文件拷贝至指定目录</li>
+<li>将元数据和 MD5 值一起保存进数据库</li>
+<li>重复执行第二步，直到遍历结束。</li>
+</ol>
+<p>　　上面看上去步骤挺多，实际代码写出来很少，而且很简单。遍历用<code>os.walk()</code>即可。</p>
+<p>　　嗯？图片元数据怎么获取？这也不难，利用 PIL 库即可获取到照片的各种元数据。不过在获取的时候可能出现意外情况，比如图片不包含元数据（可能是被清掉了，也可能是图片本身就没有），遇到这种情况就得从文件属性里面获取其它有用信息了（如：文件创建时间）。相关代码请看这里：</p>
+<pre class="line-numbers language-none"><code class="language-none">from support.utils.file.base import MediaFile
+from PIL import Image
+from PIL.ExifTags import TAGS
+from support.ui.console import Log
+        
+class Picture(MediaFile):
+    KB = 1024
+    KEY_WIDTH = ['ImageWidth','ExifImageWidth']
+    KEY_HEIGHT = ['ImageLength','ExifImageHeight']
+    KEY_GPS = 'GPSInfo'
+    KEY_DATE = 'DateTimeOriginal'
+    WIDTH = 'Width'
+    HEIGHT = 'Height'
+    DATE = 'Date'
+    LOAC = 'Local'
+    HASH = 'Hash'
+
+    def __calcDMS(self, value):
+        return value if len(value)==1 else value[0]/value[1]
+
+    def __transDMS(self, value):
+        if('2' not in value.keys()):
+            return ""
+        latitudinal = self.__calcDMS(value[2][0]) + self.__calcDMS(value[2][1])/60.0 + self.__calcDMS(value[2][2]) /3600.0
+        longitude = self.__calcDMS(value[4][0]) + self.__calcDMS(value[4][1])/60.0 + self.__calcDMS(value[4][2]) /3600.0
+
+        return "{},{}".format(longitude if value[3].upper() == 'E' else -longitude, latitudinal if value[1].upper() == 'N' else -latitudinal)
+            
+    def __hasTag(self, filtermap, key):
+        if(filtermap is None):
+            return True
+        for filter in filtermap:
+            if(isinstance(filter, str) and key == filter):
+                return True
+            if(isinstance(filter, list) and key in filter):
+                return True
+        return False
+        
+    def __transKey(self, key):
+        if(key == self.KEY_DATE):
+            return self.DATE
+        if(key == self.KEY_GPS):
+            return self.LOAC
+        if(key in self.KEY_HEIGHT):
+            return self.HEIGHT
+        if(key in self.KEY_WIDTH):
+            return self.WIDTH
+        return key
+        
+    def getMetaData(self, path, filtermap=None):
+        metaData = {}
+        metaData[self.HASH] = self.calHash(path)
+        if(self.isVideo(path)):
+            metaData[self.DATE] = self.getCreateDate(path)
+        else:
+            try:
+                file = Image.open(path)
+                info = file._getexif()
+                if(info):
+                    for (tag, value) in info.items():
+                        key = TAGS.get(tag,tag)
+                        if(self.__hasTag(filtermap, key)):
+                            metaData[self.__transKey(key)] = self.__transDMS(value) if(key == self.KEY_GPS) else value
+            except Exception as e:
+                Log.e(__file__, type(e), str(e))
+            finally:
+                if(self.DATE not in  metaData.keys()):
+                    metaData[self.DATE] = self.getCreateDate(path)
+        return metaData
+
+    def getData(self, meta, key, default=""):
+        if(key not in meta.keys()):
+            return default
+        return meta[key]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><em>备注：元数据并不是照片导入的必要信息，只不过我在最开始做的时候，还没想好照片因以什么规则进行自动归类，是按日期？还是按地理信息？</em></p>
+<p>　　从最初的方案里面可以看出相片的拷贝依赖主线程一个文件一个文件的处理。如果只有少量的数据这样玩儿问题不大，可我有 80 多 G 的照片呀！一个一个拷贝，得到天荒地老吗？</p>
+<p>　　这方案完全就是在玩儿我呀！<strong>不行，得优化！</strong></p>
+<h3 id="二代方案"><a href="#二代方案" class="headerlink" title="二代方案"></a>二代方案</h3><p>　　既然一个一个文件处理太慢了，那就并行处理呗，咱上多线程。</p>
+<p>　　线程是个好东西，执行效率提升很明显，但是线程的创建是会消耗系统资源的，总量80G的小文件，每个文件都创建一个线程，呵呵～</p>
+<p>　　我们在提高效率的时候，也得注意系统资源的占用情况，所以采用线程池来管理。好在 Python 已经有非常成熟的线程池方案了，直接使用即可。方案如下：</p>
+<ol>
+<li><font color="red"><strong>[new]</strong></font>初始化指定大小的线程池</li>
+<li>递归遍历指定目录。</li>
+<li>若遍历到的是文件且是指定文件类型则获取其 MD5 值，否则跳过该文件。</li>
+<li>在数据库中查找刚刚获取的 MD5 值，若能找到则跳过，继续执行第二步。</li>
+<li>不能找到说明这是一个新文件，那么获取其元数据（分辨率、地理信息等）</li>
+<li><font color="red"><strong>[new]</strong></font> 从线程池中分配一个线程执行文件拷贝动作</li>
+<li>如果当前执行队列中的线程数量已达到阈值，则等待至少 1 个线程完成拷贝动作后再继续执行</li>
+<li>将元数据和 MD5 值一起保存进数据库</li>
+<li>重复执行第二步，直到遍历结束。</li>
+<li><font color="red"><strong>[new]</strong></font>遍历结束后，等待执行队列中所有线程执行完成。<pre class="line-numbers language-none"><code class="language-none">self.threadPool = ThreadPoolExecutor(maxqueue)
+self._lock = RLock()
+self.dashboard = dashboard
+self.idleQueue = []
+self.runningQueue = []<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+　　这里设计 2 个队列来保存任务，<strong>是有优化空间的</strong>。</li>
+</ol>
+<p>　　最初的想法是主线程先将任务 push 进空闲队列，当空闲队列中待执行任务数量达到阈值后再去线程池中取线程逐一执行，并将分配的线程 push 进执行队列。<strong>防止主线程不停的向线程池要线程，导致线程池创建线程总数远远超过期望数量</strong>。</p>
+<p>　　而当执行队列中线程数达到 2 倍阈值就强行等待线程执行完毕，期望通过这种方式让线程池中的线程尽可能利用起来。</p>
+<p>　　可是这个设计<font color="red"><strong>存在不可修改的缺陷</strong></font>，首先线程执行完之后是直接回到线程池中的，我所设计的执行队列无法感知到这个变动，那么就会出现某线程实际已处于空闲状态，可是仍然在执行队列当中。其次线程真正开始执行需要等待空闲队列中的任务数量达到阈值，那么在未到达阈值这个时间段内，其实线程未被合理利用，同时由于队列的限制，在实际运行时会出现一批一批的执行，而不是滚动执行。</p>
+<p>　　所以后面就优化成先执行，后判断是否需要等待线程空闲的模式。但是代码上仍然留有之前方案的痕迹（其实就是自己懒得改了）。</p>
+<pre class="line-numbers language-none"><code class="language-none">def execJobs(self, force=False):
+        self._lock.acquire()
+        for task in self.idleQueue:
+            self.runningQueue.append(self.threadPool.submit(task['func'], task['args']))
+        self.idleQueue.clear()
+        while(len(self.runningQueue) &gt;= self.maxqueue):
+            Log.i(Task.TAG, "waiting for all running thread completed", len(self.runningQueue))
+            for thread in as_completed(self.runningQueue):
+                self.runningQueue.remove(thread)
+                break
+        if(force):
+            for thread in as_completed(self.runningQueue):
+                Log.i(Task.TAG, thread)
+            self.runningQueue.clear()
+        self._lock.release()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>　　现在线程有了，执行速度也提上去了，用小手机试试，发现也能正常拷贝完 80 多 G 的照片了，并且能将照片单独保存在以日期命名的各个文件夹当中。</p>
+<p>　　如果事情到这就及时截止，一切都那么美好。可是做完后，我突发奇想，如果能有一个进度条来指示拷贝进展就好了，于是我就掉进了一个大坑当中。</p>
+<h3 id="Rich"><a href="#Rich" class="headerlink" title="Rich"></a>Rich</h3><blockquote>
+<p>  <a class="link" target="_blank" rel="noopener" href="https://github.com/Textualize/rich">Rich<i class="fas fa-external-link-alt"></i></a> 是一个 Python 库，可以为您在终端中提供富文本和精美格式。<br><br>  <a class="link" target="_blank" rel="noopener" href="https://rich.readthedocs.io/en/latest/">Rich API<i class="fas fa-external-link-alt"></i></a> 可以很容易的在终端输出添加各种颜色和不同风格。Rich 还可以绘制漂亮的表格，进度条，markdown，突出显示语法的源代码及回溯等等，不胜枚举。</p>
+</blockquote>
+<h2 id="上述均转自-Rich-的-readme-文件，不可否认效果确实挺漂亮的，而且封装非常好。就是文档太少了。国内的相关文档要么把人家的-readme-拷贝一次，要么就是同一篇文章抄来抄去。唉，也许这也是国内技术博客的现状吧。"><a href="#上述均转自-Rich-的-readme-文件，不可否认效果确实挺漂亮的，而且封装非常好。就是文档太少了。国内的相关文档要么把人家的-readme-拷贝一次，要么就是同一篇文章抄来抄去。唉，也许这也是国内技术博客的现状吧。" class="headerlink" title="　　上述均转自 Rich 的 readme 文件，不可否认效果确实挺漂亮的，而且封装非常好。就是文档太少了。国内的相关文档要么把人家的 readme 拷贝一次，要么就是同一篇文章抄来抄去。唉，也许这也是国内技术博客的现状吧。"></a>　　上述均转自 Rich 的 readme 文件，不可否认效果确实挺漂亮的，而且封装非常好。就是文档太少了。国内的相关文档要么把人家的 readme 拷贝一次，要么就是同一篇文章抄来抄去。唉，也许这也是国内技术博客的现状吧。</h2><p>　　<font color="red">下文为 rich 踩坑实录。均为个人理解，若与Rich官方文档冲突，以官方为主</font></p>
+<h3 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h3><p>　　既然用上了 rich，我当然希望能更好的使用它强大的显示特性，我不仅仅想要有进度条，还想有状态、日志等相关信息展示。所以这里就需要用到 layout 功能，将屏幕进行分割。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/25/60995284905417873.jpg" alt="我全要"></p>
+<p>　　layout 的 API 其实挺简单的，将屏幕按行分割或按列分割，分割之后的每一个区域又可以再按行或列分割。同时可以指定分割后的区域大小，占比等信息。比如我就是这样分割整块屏幕的。</p>
+<pre class="line-numbers language-none"><code class="language-none">layout = Layout(name="root")
+layout.split(
+    Layout(name="header", size=3),
+    Layout(name="main", ratio=1),
+    Layout(name="copyright", size=9),
+)
+layout["main"].split_row(
+    Layout(name="info", ratio=2),
+    Layout(name="progress", ratio=1)
+)
+layout["progress"].split(
+     Layout(name="overall", size=3),
+     Layout(name="jobs", ratio=1)
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/25/bc8baf0e91de6357605f95758fd3a829.png" alt="layout"></p>
+<p>　　分割好之后就需要向各个区域填充想要显示的控件。rich 支持多种填充控件，我这里主要用到了进度条（progress）、文本显示（panel）。</p>
+<h3 id="进度条-Progress"><a href="#进度条-Progress" class="headerlink" title="进度条 Progress"></a>进度条 Progress</h3><h4 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h4><p>　　首先需要给 progress 定义显示样式。Rich 封装了几种常用的样式，按需组合即可。在初始化 progress 时即可指定样式：</p>
+<pre class="line-numbers language-none"><code class="language-none">self.overallProgress = SmartProgress(TextColumn("[progress.description]{task.description}"), CountColumn(), BarColumn(), TextColumn("[progress.percentage]{task.percentage:&gt;3.0f}%"))
+
+self.jobsProgress = SmartProgress(TextColumn("{task.description}", justify="left"),"|",DownloadColumn(),BarColumn(bar_width=None),"|",TextColumn("[progress.percentage]{task.percentage:&gt;3.0f}%"),"|",TimeRemainingColumn())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>　　这里的 SmartProgress 是我二次封装的 progress，但是初始化函数与 Progress 是一致的，参数乍看上去挺复杂的。但是拆解一下就一目了然了。</p>
+<p>　　以第一个 overallProgress 为例。它的参数分别是<code>TextColumn(), CountColumn(), BarColumn(), TextColumn()</code>。这些参数共同构成了 overallProgress 的显示样式，其排列的顺序就是最终显示的顺序。显示的效果即：</p>
+<p><code>文本 计数器 进度条 文本</code></p>
+<p>　　而前后两个文本到底显示什么呢？我们继续拆解参数。</p>
+<p>　　第一个 TextColumn 参数为<code>"[progress.description]{task.description}"</code>，它表示会显示 progeess 的 description 属性，同时也显示自定义属性 task.description 的内容，内容排序以参数中定义的顺序排列。</p>
+<p>　　第二个 TextColumn 参数为<code>"[progress.percentage]{task.percentage:&gt;3.0f}%"</code>，它表示显示 progress 的 percentage 属性，同时显示自定义 task.percentage 并在最后加上百分号。</p>
+<p>　　这样回头再看 overallProgress 的显示样式会是这样的：</p>
+<p><code>进度描述 计数器 进度条 当前百分比</code></p>
+<p>　　而第二个 jobsProgress 经过拆解后也能得知其显示样式为：</p>
+<p><code>任务描述 | 下载计数 | 进度条 | 进度百分比 | 预计剩余时间</code></p>
+<h4 id="列"><a href="#列" class="headerlink" title="列"></a>列</h4><p>　　列是 progress 中的术语，多个 progress 在一起的时候，会 Rich 会保持其列对齐。因此列只需要关注自己的显示内容即可。在 progress 参数中出现的 CountColumn 同样是二次封装的列，其代码如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">from rich.progress import BarColumn, DownloadColumn, Progress, TextColumn, TimeRemainingColumn, ProgressColumn
+from typing import Optional
+from rich.text import Text, TextType
+from rich.table import Column
+
+class CountColumn(ProgressColumn):
+
+    def __init__(
+        self, binary_units: bool = False, table_column: Optional[Column] = None
+    ) -&gt; None:
+        self.binary_units = binary_units
+        super().__init__(table_column=table_column)
+
+    def render(self, task: "Task") -&gt; Text:
+        if(task.total is None):
+            count_status = f"{task.completed}/?"
+        else:
+            total = int(task.total)
+            count_status = f"{task.completed}/{total}"
+        count_text = Text(count_status, style="progress.download")
+        return count_text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>　　可以看出列最主要的作用就是返回此时应该显示什么内容。</p>
+<h4 id="进度条控制"><a href="#进度条控制" class="headerlink" title="进度条控制"></a>进度条控制</h4><p>　　在上文提到多进度条的时候 Rich 会保证其列对齐。可是我们似乎只初始化了 2 个进度条呢，是指他两列对齐吗？当然不是。先来了解 一下Progress 提供的 API ，然后就明白了。</p>
+<p>　　Progress并不是看到的某一个具体的进度条，而是某一类（相同样式）的集合。通过<code>add_task</code>的方式可以在其中添加任意条实际会显示的progress。该方法每调用一次就会返回一个taskID，之后可以通过ID操作某一个具体的进度条。</p>
+<p>　　Progress可操作的内容均和其显示的内容有关，常用的如：</p>
+<ul>
+<li>description 进度条的描述信息</li>
+<li>total 进度条总长（默认100）</li>
+<li>completed（当前已完成长度）</li>
+<li>advance（类似追加的概念，每次设置后会在当前completed的基础上再追加advance，并重新设置completed）</li>
+<li>自定义属性</li>
+</ul>
+<p>　　除上述内容外，还可以获取当前所有的task，遍历每一个task状态等。详细的可参考Rich的源码progress.py。</p>
+<h3 id="文本显示-panel"><a href="#文本显示-panel" class="headerlink" title="文本显示 panel"></a>文本显示 panel</h3><p>　　Panel很特殊，它更像是一个“容器”，将另一个控件包裹起来，通常里面会放入Table.grid(网格控件)或上文提到的Progress。下面是一个放入网格的例子：</p>
+<pre class="line-numbers language-none"><code class="language-none">class CopyrightPanel:
+
+    def __init__(self, title="[ Copyright ]", style="bright_blue"):
+        self.title = title
+        self.style = style
+
+    def __rich__(self) -&gt; Panel:
+        sponsor_message = Table.grid(padding=1)
+        sponsor_message.add_column(style="green", justify="right")
+        sponsor_message.add_column(justify="left")
+        sponsor_message.add_row(
+            "Gitee",
+            "[u blue link=https://gitee.com/ray0728/multimedia-file-synchronizer/tree/release-mfs]https://gitee.com/ray0728/multimedia-file-synchronizer/tree/release-mfs",
+        )
+        sponsor_message.add_row(
+            "Blog",
+            "[u blue link=https://www.ray0728.cn/]https://www.ray0728.cn/",
+        )
+        sponsor_message.add_row(
+            "Email",
+            "[u blue link=mailto://51101661@qq.com]51101661@qq.com",
+        )
+        intro_message = Text.from_markup("""\
+
+Please provide more comments and bugs! or buy me a coffee to say good job.
+
+
+
+- Ray
+
+
+
+The UI is developed based on the [bold magenta]Rich[/] component.
+
+[u blue link=https://github.com/sponsors/willmcgugan]https://github.com/sponsors/willmcgugan[/]
+
+""")
+        message = Table.grid(expand=True)
+        message.add_column()
+        message.add_column()
+        message.add_row(intro_message, sponsor_message)
+
+        message_panel = Panel(
+            message,
+            title=self.title,
+            border_style=self.style,
+        )
+        return message_panel<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>　　这是封装过的panel，提供静态的copyright信息。</p>
+<h3 id="装载"><a href="#装载" class="headerlink" title="装载"></a>装载</h3><p>　　准备好progress和panel之后就可以向layout装载这些东西了。</p>
+<pre class="line-numbers language-none"><code class="language-none">self.logRedirect = LogPanel()
+# Log.logRedirect = NullDev()
+Log.logRedirect = self.logRedirect
+layout["info"].update(self.logRedirect)
+layout["copyright"].update(CopyrightPanel())
+layout["header"].update(ClockPanel(title, "white on blue"))
+layout["overall"].update(Panel(self.overallProgress, title="Overall Progress", border_style="orange4"))
+layout["jobs"].update(Panel(self.jobsProgress, title="[ Jobs Progress ]", border_style="green"))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="刷新-Live"><a href="#刷新-Live" class="headerlink" title="刷新 Live"></a>刷新 Live</h3><p>　　Rich使用Live来实现控件刷新的，比如progress，上文装载的多个控件都可以通过Live的方式实现控件的定时刷新。</p>
+<h4 id="Live刷新的本质"><a href="#Live刷新的本质" class="headerlink" title="Live刷新的本质"></a>Live刷新的本质</h4><p>　　Live刷新是通过根控件，逐一查找其子控件，并根据子控件当前数据以及状态重绘子控件来实现界面刷新。</p>
+<p>　　这个方法被封装在Live的update当中。当Live启动定时线程后，由定时线程去调用update方法。</p>
+<p>　　因为Rich最终是在stdout或自定义file中输出。如果存在多个Live同时刷新界面，那么输出一定是乱序的，所以Rich不允许同时启动多个Live。</p>
+<p>　　实测发现在不同操作系统上Rich表现不一样，Linux上的表现比在Windows上更丰富，且平滑。</p>
+<h4 id="Live手动刷新"><a href="#Live手动刷新" class="headerlink" title="Live手动刷新"></a>Live手动刷新</h4><p>　　回到我的相片拷贝业务上来，文件的遍历一定是主线程该干的事儿，文件拷贝是子线程干的事儿，界面刷新则是Live干的事儿。界面主要显示内容应该是拷贝的进度。</p>
+<p>　　因为Live与各拷贝子线程之间并无联系，因此拷贝进度无法通知到Live，并实时刷新界面显示。但如果让拷贝子线程有能力通知并触发Live刷新了，这就又与Live的定时刷新机制相冲突。</p>
+<p>　　幸运的是Live提供了不开启定时刷新的开关，因此不用侵入式修改Rich源码，只需要将Live的相关动作封装一下，就可以在不使用定时刷新线程的情况下，手动刷新界面了。</p>
+<pre class="line-numbers language-none"><code class="language-none">def show(self):
+    self.live = Live(self.layout, refresh_per_second=1, screen=True, auto_refresh=False)
+    #self.live = Live(self.layout, refresh_per_second=4, screen=True)
+
+    self.live.start(True)
+
+def update(self):
+    self._lock.acquire()
+    if(self.live is not None):
+        self.live.update(self.layout)
+    self._lock.release()
+
+def hiden(self):
+    if(self.live is not None):
+        self.live.stop()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="何时刷新"><a href="#何时刷新" class="headerlink" title="何时刷新"></a>何时刷新</h4><p>　　一般来说可以在任意时候调用，不过为了让调用更优雅，我将刷新调用逻辑封装在了线程task.py当中，简单来说子线程在必要的时候可回调Live刷新接口。</p>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/02/20/record.gif" alt="record.gif"></p>
+<p>　　虽然看上去还行，但是代码还是有些小毛病，比如刷新不够平滑，进度条有时候会有跳变，如果有好心人发现了bug，也非常欢迎提交修改合入。</p>
+<p>相关源码已在<a class="link" target="_blank" rel="noopener" href="https://gitee.com/ray0728/multimedia-file-synchronizer/tree/release-mfs">Gitee<i class="fas fa-external-link-alt"></i></a>开源</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：基于Python的相片导入工具</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2022-02-25 11:30:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2022/02/25/python_photo_importer/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/python/">#python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/01/29/%E4%BA%91%E4%B8%8A%E7%BC%96%E8%AF%91%E5%99%A8/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">云上编译器 随时随地编代码</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%EF%BC%8C%E4%B8%B0%E8%A1%A3%E8%B6%B3%E9%A3%9F"><span class="nav-number">2.</span> <span class="nav-text">自己动手，丰衣足食</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="nav-number">2.1.</span> <span class="nav-text">初代方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="nav-number">2.2.</span> <span class="nav-text">二代方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rich"><span class="nav-number">2.3.</span> <span class="nav-text">Rich</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0%E5%9D%87%E8%BD%AC%E8%87%AA-Rich-%E7%9A%84-readme-%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%8D%E5%8F%AF%E5%90%A6%E8%AE%A4%E6%95%88%E6%9E%9C%E7%A1%AE%E5%AE%9E%E6%8C%BA%E6%BC%82%E4%BA%AE%E7%9A%84%EF%BC%8C%E8%80%8C%E4%B8%94%E5%B0%81%E8%A3%85%E9%9D%9E%E5%B8%B8%E5%A5%BD%E3%80%82%E5%B0%B1%E6%98%AF%E6%96%87%E6%A1%A3%E5%A4%AA%E5%B0%91%E4%BA%86%E3%80%82%E5%9B%BD%E5%86%85%E7%9A%84%E7%9B%B8%E5%85%B3%E6%96%87%E6%A1%A3%E8%A6%81%E4%B9%88%E6%8A%8A%E4%BA%BA%E5%AE%B6%E7%9A%84-readme-%E6%8B%B7%E8%B4%9D%E4%B8%80%E6%AC%A1%EF%BC%8C%E8%A6%81%E4%B9%88%E5%B0%B1%E6%98%AF%E5%90%8C%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%8A%84%E6%9D%A5%E6%8A%84%E5%8E%BB%E3%80%82%E5%94%89%EF%BC%8C%E4%B9%9F%E8%AE%B8%E8%BF%99%E4%B9%9F%E6%98%AF%E5%9B%BD%E5%86%85%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%E7%9A%84%E7%8E%B0%E7%8A%B6%E5%90%A7%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">　　上述均转自 Rich 的 readme 文件，不可否认效果确实挺漂亮的，而且封装非常好。就是文档太少了。国内的相关文档要么把人家的 readme 拷贝一次，要么就是同一篇文章抄来抄去。唉，也许这也是国内技术博客的现状吧。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#layout"><span class="nav-number">3.1.</span> <span class="nav-text">layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%BA%A6%E6%9D%A1-Progress"><span class="nav-number">3.2.</span> <span class="nav-text">进度条 Progress</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E5%BC%8F"><span class="nav-number">3.2.1.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97"><span class="nav-number">3.2.2.</span> <span class="nav-text">列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%BA%A6%E6%9D%A1%E6%8E%A7%E5%88%B6"><span class="nav-number">3.2.3.</span> <span class="nav-text">进度条控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA-panel"><span class="nav-number">3.3.</span> <span class="nav-text">文本显示 panel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E8%BD%BD"><span class="nav-number">3.4.</span> <span class="nav-text">装载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B7%E6%96%B0-Live"><span class="nav-number">3.5.</span> <span class="nav-text">刷新 Live</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Live%E5%88%B7%E6%96%B0%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">3.5.1.</span> <span class="nav-text">Live刷新的本质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Live%E6%89%8B%E5%8A%A8%E5%88%B7%E6%96%B0"><span class="nav-number">3.5.2.</span> <span class="nav-text">Live手动刷新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E5%88%B7%E6%96%B0"><span class="nav-number">3.5.3.</span> <span class="nav-text">何时刷新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="nav-number">3.6.</span> <span class="nav-text">最终效果</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

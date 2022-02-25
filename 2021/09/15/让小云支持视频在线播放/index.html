@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            让小云支持视频在线播放 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">让小云支持视频在线播放</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2021-09-15 22:00:00</span>
+        <span class="mobile">2021-09-15 22:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ffmpeg/">ffmpeg</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  在<a class="link" target="_blank" rel="noopener" href="https://www.ray0728.cn/2021/08/26/%E4%BA%91%E4%B8%8A%E5%88%A9%E7%94%A8Aria%E6%90%AD%E5%BB%BA%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7/">《利用Aria搭建离线下载工具》<i class="fas fa-external-link-alt"></i></a>一文末尾给自己留了一个待办事项</p>
+<blockquote>
+<p>配合下载工具实现下载完成后自动切片，以支持HLS在线播放</p>
+</blockquote>
+<p>  其实很早就在摸索落地方案了，但是最近工作确实特别忙，一边忙工作一边断断续续的探索，直到现在，基本上方案可以定型了。方案还是遵循一个原则：<strong>低代码开发，有现成的就用</strong>。</p>
+<span id="more"></span>
+
+<p>  大约在几年前吧，那个时候闲得无聊，利用SpringCloud + JS + FFMpeg做出过一个通过前端分片上传视频文件，后端自动完成切片的网站DEMO，所以在探索这个遗留事项的时候也就直奔FFMpeg而去，很快就搜索到几个候选方案。</p>
+<h2 id="Express-FFMpeg"><a href="#Express-FFMpeg" class="headerlink" title="Express-FFMpeg"></a>Express-FFMpeg</h2><p>  一款带有CMS系统的离线转码平台。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>这套平台自带了很多挺不错的功能，如一键扫库（可自动将符合条件的文件加载进资源库中）、加水印（可加在切片中，也可加在播放器中）、TS文件加密以及生成预览图片等等，相关介绍请点<a class="link" target="_blank" rel="noopener" href="https://gitee.com/quazero/express-ffmpeg">这里<i class="fas fa-external-link-alt"></i></a>。</p>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><p>  但是它也有避不开的短板（仅针对我使用过的docker版本）如：</p>
+<ul>
+<li>转码切片过程中CPU负载高</li>
+<li>音频格式支持不全，蓝光格式视频文件很难转码成功。</li>
+<li>无版本更新渠道</li>
+</ul>
+<p>  先说转码时的负载，对于我这样的小云（1核2G ECS）转码时CPU、内存双报警简直正常得不要不要的，虽然能理解，但接受不了。因为负载过高意味着我的其他服务就无法对外提供业务，比如我的这个博客小站。</p>
+<p>  再说格式支持不全，通过ARIA下载的高清资源以MKV居多，而其中的音频格式又基本是DTS，我不确定是否是我使用的express-ffmpeg版本太老，无法支持还是别的原因。总之在扫库之后很容易卡在转码这一步。</p>
+<p>  最后说说版本升级的事儿，从官网的介绍来看，我使用的docker版本已不再维护了，后续开发者专注到高级版以及纯净版（我理解这是2个更细分的领域）的开发工作上。因此要么停留在当前版本要么升级到新版本。官网也提供了新版本的下载地址，可是问题就在于新版本引入了key（可以理解为正版验证码）但是却没有提供申请或购买key的通道。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/14/img.wxcha.jpg" alt="What are U弄啥嘞"></p>
+<p>  基于以上种种，我还是看看其他候选方案吧</p>
+<h2 id="SRS-Simple-Realtime-Server"><a href="#SRS-Simple-Realtime-Server" class="headerlink" title="SRS(Simple Realtime Server)"></a>SRS(Simple Realtime Server)</h2><p>  SRS是一个简单高效的实时视频服务器，支持RTMP/WebRTC/HLS/HTTP-FLV/SRT。更多介绍可点击<a class="link" target="_blank" rel="noopener" href="https://ossrs.net/releases/">这里<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="优势-1"><a href="#优势-1" class="headerlink" title="优势"></a>优势</h3><p>  与express-ffmpeg相比较最大的优势在于负载。它是以实时切HLS（或RTMP）的方式提供视频网络播放功能，也就是说它仅对当前播放时间窗内的数据切片、保存，除此之外均不操作。换个词来说，这就是<strong>网络直播</strong>。</p>
+<h3 id="劣势-1"><a href="#劣势-1" class="headerlink" title="劣势"></a>劣势</h3><p>  最大的劣势在于不支持点播，回放（重新推流不算），以及没有一个更简单的控制台，SRS所提供的控制台更像是一个数据看板，只能看当前的实时情况，却没办法做太多的控制（如发起推流，或设置分类），不过若SRS本身就是定位在提供实时音视频服务的话，也确实不需要提供过多花里胡哨的东西。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/15/Screenshot_20210915_225721.jpg" alt="console"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/15/Screenshot_20210915_225743.jpg" alt="console"></p>
+<p>  同时对新手不友好，关键帮助文档欠缺。如对SRS中特有的Vhost没有更多的介绍，连Vhost之间如何跳转的没多写一个字。</p>
+<h3 id="综合"><a href="#综合" class="headerlink" title="综合"></a>综合</h3><p>  两套方案各有利弊，express-ffmpeg更接近开箱即用，提供端到端解决方案，虽然会遇到转码失败等问题，不过总体来讲还算不错。SRS有更强的扩展能力，并且低开销，高性能，很适合我这样的小云部署。也正是考虑到云端的开销，最终选择了SRS作为<strong>在线播放</strong>的解决方案。从部署后的运行效果来看，还算稳定。CPU实时负载游荡在告警门限值附近。</p>
+<p><strong>12小时系统负载</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/15/Screenshot_20210915_232736.jpg" alt="CPU"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/15/Screenshot_20210915_232755.jpg" alt="MEM"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/15/Screenshot_20210915_232811.jpg" alt="LOAD"></p>
+<p><strong>实际效果</strong>（<em>循环推流 Tom and Jerry</em>）</p>
+<video width="176" height="144" controls="">
+  <source src="https://movie.ray0728.cn/live/loop.m3u8" type="application/vnd.apple.mpegurl">
+  浏览器不支持 video 标签。
+</video>
+
+<h3 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h3><p>  选用SRS最大的困难在于不容易找到最直接的帮助文档，得多翻相关帮助说明，而这其中就以如何配置最为关键。在说明文档中可以看出VHost是SRS完成最主要工作的地方。那么什么是VHost呢？</p>
+<p><strong>VHost</strong></p>
+<p>  网上的资料大多说VHost就是SRS虚拟出多个主机，然后可以将业务通过域名相互隔离开。并且给出了通过配置本地hosts增加DNS解析的例子。我当前并不确定SRS中设置VHost真实的目的是什么，以下均为个人猜测。</p>
+<ol>
+<li>面向业务隔离的虚拟主机</li>
+</ol>
+<p>  SRS官方推荐的使用方式之一就是docker。既然都用docker了，为什么还要在SRS中引入虚拟主机的概念呢？这是玩无限套娃吗？另外用同一个SRS镜像多开几个容器不也可以实现业务间的隔离吗？为什么非要在一个服务里揉进这么多弯弯绕的东东呢？不担心复杂度高了，系统不稳定吗？</p>
+<ol start="2">
+<li>面向对象的数据流转</li>
+</ol>
+<p>  从官网的Wiki所提供的几个例子中，个人感觉VHost更像是面向对象的一种设计，即一个VHost只专注于一件事情，做完了后再传递给下一个VHost继续完成业务流。如果是这样理解的话，那么VHost就完全是SRS内部数据流转的方式了，更hosts、DNS之类的完全不沾边了。</p>
+<p>  我个人是比较倾向第二种的，当然这也仅仅是个人的猜测。</p>
+<p><strong>配置文件</strong><br>  将Docker镜像拉下来之后，只需要修改配置文件就可以让SRS工作起来。以下是当前正在使用的配置文件，大部分都是默认参数。</p>
+<p><strong>目标：将视频流转换成HLS，并支持通过浏览器播放。</strong></p>
+<pre class="line-numbers language-none"><code class="language-none"># main config for srs.
+# @see full.conf for detail config.
+
+listen              1935;
+max_connections     1000;
+srs_log_tank        console;
+daemon              on;
+http_api {
+    enabled         off;
+    listen          1985;
+}
+http_server {
+    enabled         on;
+    listen          8080;
+    dir             ./objs/nginx/html;
+}
+stats {
+    network         0;
+    disk            sda sdb xvda xvdb;
+}
+vhost __defaultVhost__ {
+    tcp_nodelay   on;
+    min_latency   on;
+
+    play {
+       gop_cache    off;
+       queue_length  10;
+       mw_latency    100;
+    }
+
+    transcode {
+        enabled     on;
+        ffmpeg      ./objs/ffmpeg/bin/ffmpeg;
+        engine ff {
+            enabled         on;
+            vcodec          copy;
+            acodec          libfdk_aac;
+            abitrate        45;
+            asample_rate    44100;
+            achannels       2;
+            aparams {
+            }
+            output          rtmp://127.0.0.1:[port]/[app]?vhost=__hlsVhst__/[stream];
+        }
+    }
+}
+
+vhost __hlsVhost__ {
+    hls {
+        enabled         on;
+        hls_fragment    10;
+        hls_window      60;
+        hls_path        ./objs/nginx/html;
+        hls_m3u8_file   [app]/[stream].m3u8;
+        hls_ts_file     [app]/[stream]-[seq].ts;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><p>  以下依然是个人推测。通过将视频推流至SRS时，入口是<kbd><strong>defaultVhost</strong></kbd>。数据流进来后会触发<kbd>transcode</kbd>进行视频转码，以符合HLS切片要求。完成转码后会将数据流推给<kbd><strong>hlsVhost</strong></kbd>进行HLS切片，这样就完成了视频到HLS转变了。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>  SRS一旦上手后可玩性很强，而且4.0的功能更多，诸如支持多人视频会议等一系列特性都挺吸引人的，后面有机会再继续研究一下吧。</p>
+<p>  这几天《青蛇劫起》全网上线了，作为加班星人自认是没时间去电影院了，就默默充个爱奇艺会员支持一下吧，也愿国漫能越来越好。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2021/09/15/www.sina.jpg" alt="白蛇2"></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：让小云支持视频在线播放</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2021-09-15 22:00:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2021/09/15/让小云支持视频在线播放/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/docker/">#docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/ffmpeg/">#ffmpeg</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/10/27/gatway%E4%BD%BF%E7%94%A8Security%E9%80%82%E9%85%8DKeycloak/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Spring cloud gatway使用Spring security适配Keycloak</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/08/26/%E4%BA%91%E4%B8%8A%E5%88%A9%E7%94%A8Aria%E6%90%AD%E5%BB%BA%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">云上利用Aria搭建离线下载工具</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'E8BmowvufoeANP7Pj8uUpDS6-MdYXbMMI',
+                    appKey: 'jwSG6ijrYq4XoGEVPUQeXgGE',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Express-FFMpeg"><span class="nav-number">1.</span> <span class="nav-text">Express-FFMpeg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.</span> <span class="nav-text">劣势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SRS-Simple-Realtime-Server"><span class="nav-number">2.</span> <span class="nav-text">SRS(Simple Realtime Server)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-1"><span class="nav-number">2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF-1"><span class="nav-number">2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%BC%E5%90%88"><span class="nav-number">2.3.</span> <span class="nav-text">综合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88"><span class="nav-number">2.4.</span> <span class="nav-text">实现方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">2.5.</span> <span class="nav-text">工作流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">2.6.</span> <span class="nav-text">最后</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
