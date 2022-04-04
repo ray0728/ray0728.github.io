@@ -348,7 +348,7 @@
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>  界面刷新使用统一的接口nextGeneration实现，在这里就可以自定义的任意规则。接口只需要对N x M</p>
+<p>  界面刷新使用统一的接口nextGeneration实现，在这里就可以自定义的任意规则。接口只需要对N x M 的二维数组更新就可以了。</p>
 <h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><p>  从原理上可以看出，如果视图区域（view）比较大，那么对应的数组大小、上色的区域都比较大，加上代码并为针对不同的浏览器做优化，导致在不同的浏览器上显示效果不一样。最明显的就是Ubuntu下的FireFox 和 Chrome。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/03/26/performce.gif" alt="performce.gif"></p>
 <p>  移动端上的表现也各有不同，看来前端开发确实挺难的呢。</p>
