@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="向着财富与自由前进吧">
+    <meta name="author" content="Ray">
+    
+    <title>
+        
+            一次云服务器内核升级之旅 |
+        
+        Ray的日记本
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://arts.ray0728.cn/images/2021/08/01/logo.png","favicon":"https://arts.ray0728.cn/images/2021/08/01/logo.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_img":"/images/mybg.svg","description":"要知道，春天的道路依然充满泥泞！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Ray的日记本
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://code.ray0728.cn/"
+                            >
+                                CODE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://analysis.ray0728.cn/"
+                            >
+                                ANALYSIS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="https://beta.ray0728.cn/"
+                            >
+                                BETA
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://code.ray0728.cn/">CODE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://analysis.ray0728.cn/">ANALYSIS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="https://beta.ray0728.cn/">BETA</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">一次云服务器内核升级之旅</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://arts.ray0728.cn/images/2021/08/01/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ray</span>
+                        
+                            <span class="author-label">Architect</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-23 08:20:00</span>
+        <span class="mobile">2022-05-23 08:20</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/kernel/">kernel</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>  最近突发奇想，想尝试在本就不富裕的小云上搭建一个云手机平台。于是在github上不停的搜关键字（这里吐槽一下gitee的搜索功能做得还是太弱了），终于让我找到了两个不错的开源项目，<a class="link" target="_blank" rel="noopener" href="https://github.com/anbox/anbox/blob/master/README.md">anbox<i class="fas fa-external-link-alt"></i></a>和<a class="link" target="_blank" rel="noopener" href="https://github.com/remote-android/redroid-doc">redroid<i class="fas fa-external-link-alt"></i></a>。</p>
+<p>  我们都知道Android是分层的，按语言可简单分为Java和Native，按类别可分为application和service，他们之间的通信几乎都是利用ashmem或binder完成。而这2个功能又需要内核支持。所以不管是那种容器（容器与主机共用同一个内核）方案，内核都需要支持ashmem和binder。遗憾的是我的小云运行的是CentOS7，内核是3.10。默认不开启ashmem和binder功能的。所以只有一条路可走，手动编译适合的内核（yum虽能安装高版本内核，但是不确认是否已开启这2个特性）。</p>
+<span id="more"></span>
+
+<p>  通过以下命令可确认是否支持ashmem和binder。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#check modules status
+lsmod | grep -e ashmem_linux -e binder_linux
+# example output:
+# binder_linux          147456  79
+# ashmem_linux           16384  23
+
+# we can also check like this
+grep binder /proc/filesystems 
+# output should like: nodev	binder
+grep ashmem /proc/misc 
+# output should like: 56 ashmem<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>注：centos7 默认开启binder之后，/dev下可能也没有binder节点，可以通过手动mount的方式进行确认。</em></p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo mkdir /dev/binderfs
+sudo mount -t binder binder /dev/binderfs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="内核编译"><a href="#内核编译" class="headerlink" title="内核编译"></a>内核编译</h2><h3 id="内核下载"><a href="#内核下载" class="headerlink" title="内核下载"></a>内核下载</h3><p>  首先要挑选<strong>合适</strong>的内核版本下载，可以通过<a class="link" target="_blank" rel="noopener" href="https://www.kernel.org/">kernel.org<i class="fas fa-external-link-alt"></i></a>官网或国内镜像（如：<a class="link" target="_blank" rel="noopener" href="https://mirrors.aliyun.com/linux-kernel/">阿里云<i class="fas fa-external-link-alt"></i></a>）进行下载。</p>
+<p>  内核版本并不是越高越好，经过血泪教训，建议一定选择长周期版本，防止内核抽风（之前用5.17.3，系统老是Panic重启，让人相当的崩溃）。</p>
+<p>  内核源码可通过wget下载到本地某个目录下，然后用tar解压即可（属于基操就不多说了）。</p>
+<h3 id="内核配置"><a href="#内核配置" class="headerlink" title="内核配置"></a>内核配置</h3><p>  Linux的内核有太多配置项需要配置，且大多数配置项可能都不知道是用来干嘛的（到底应该开还是不开？懵逼ing）。所以建议在配置前先将当前的内核配置文件拷贝过来，这样只需要根据需求做增量修改置即可。</p>
+<p><em>当前使用的内核配置依据系统的不同可能在不同的地方</em></p>
+<pre class="line-numbers language-none"><code class="language-none">/proc/config.gz
+/boot/config-$(uname -r)
+/usr/src/linux-$(uname -r)/.config
+/usr/src/linux/.config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  找到配置之后将其重命名为<kbd>.config</kbd>，并拷贝至内核源码目录下即可。因为是在云上操作，只能通过ssh登录字符界面，那么可通过<code>make menuconfig</code>打开一个字符图形界面来配置内核。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://arts.ray0728.cn/images/2022/05/09/watermarktype_ZmFuZ3poZW5naGVpdGkshadow_10text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA2MzIxNjUsize_16color_FFFFFFt_70.png" alt="内核配置"></p>
+<p><em>备注：上图只是一个示例，Android相关的配置在红框内可以找到。</em></p>
+<p>  除了使用界面来配置内核，还有更简单的方式，即直接在.config文件中加入想要打开的配置项，比如开启Android相关的开关，可以添加如下内容：</p>
+<pre class="line-numbers language-none"><code class="language-none">CONFIG_ASHMEM=y
+CONFIG_ANDROID=y
+CONFIG_ANDROID_BINDER_IPC=y
+CONFIG_ANDROID_BINDERFS=y
+CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder,binderfs"
+CONFIG_ANDROID_BINDER_IPC_SELFTEST=y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>详细的配置已放在<a class="link" target="_blank" rel="noopener" href="https://gitee.com/ray0728/redroid-modules/raw/master/kernel/.config">Gitee<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="内核编译-1"><a href="#内核编译-1" class="headerlink" title="内核编译"></a>内核编译</h3><p>  配置好之后，就可以在内核源码所在目录执行<kbd>make</kbd>，开始进行内核编译。这一步会生成内核模块和vmlinuz，initrd.img，Symtem.map等文件。</p>
+<p><strong><font color="red">强烈建议：make时带上参数LOCALVERSION，以便于更好的区分内核。如：</font></strong></p>
+<p><code>make LOCALVERSION=android</code></p>
+<p>  网上有资料写还需要执行make modules什么的，其实完全不用。在不特点指定make对象的时候，make会自动编译完所有内容。</p>
+<p>  编译成功后需将模块（ko文件）以及内核镜像等文件拷贝至系统目录。执行<kbd>make modules_install</kbd>和<kbd>make install</kbd>即可。</p>
+<p>  <kbd>modules_install</kbd>会在<kbd>/lib/modules</kbd>目录下新建一个与本次编译内核同名的文件夹，并将编译生成的ko文件拷贝进来。</p>
+<pre class="line-numbers language-none"><code class="language-none">[core@VM-16-15-centos modules]$ pwd
+/lib/modules
+[core@VM-16-15-centos modules]$ ls
+3.10.0-1160.62.1.el7.x86_64  5.4.190-android
+[core@VM-16-15-centos modules]$ ls 5.4.190-android/
+build              modules.builtin.bin      modules.order
+kernel             modules.builtin.modinfo  modules.softdep
+modules.alias      modules.dep              modules.symbols
+modules.alias.bin  modules.dep.bin          modules.symbols.bin
+modules.builtin    modules.devname          source
+[core@VM-16-15-centos modules]$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  <kbd>install</kbd>则会将内核镜像文件拷贝至启动分区（/boot）。</p>
+<p>  至此，内核编译与安装就完成了，不过此时重启系统并不会用新的内核进行引导，还需要修改引导顺序。</p>
+<h3 id="内核切换"><a href="#内核切换" class="headerlink" title="内核切换"></a>内核切换</h3><p>  Linux内核一般通过GRUB进行引导，发展到今天GRUB已经很稳定了（很久以前装Linux和Windows双系统，稍不注意就把GRUB搞砸了），对于内核升级的场景也不用特别担心，按步骤修改即可。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+grub2-set-default '$your_kernel_name_or_index'
+vim /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>获取当前内核列表（在上一步<kbd>make install</kbd>后，会刷新信息），列表是有序排列，最顶上序号为0，往下依次加1。请记住需要切换内核的序号以及名称。</li>
+<li>配置默认内核信息，通过<kbd>grub2-set-default</kbd>进行设置，参数可以是名字也可以是序号。</li>
+<li>修改配置文件（/etc/default/grub），刷新文件中默认引导内核的序号。</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=0
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL="serial console"
+GRUB_TERMINAL_OUTPUT="serial console"
+GRUB_CMDLINE_LINUX="crashkernel=auto console=ttyS0 console=tty0 panic=5 net.ifnames=0 biosdevname=0 intel_idle.max_cstate=1 intel_pstate=disable"
+GRUB_DISABLE_RECOVERY="true"
+GRUB_SERIAL_COMMAND="serial --speed=9600 --unit=0 --word=8 --parity=no --stop=1"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  关键是修改<font color="red">GRUB_DEFAULT=序号</font>。完成修改后就可以重新生成GRUB引导配置了。</p>
+<ol start="4">
+<li>执行<kbd>grub2-mkconfig -o /boot/grub2/grub.cfg</kbd>即可根据新的培训信息生成并覆盖之前的文件了。</li>
+</ol>
+<p>  有时候编译出来的内核可能与预期不符，当然我们可以继续编译一个新的同版本的内核（使用不同的后缀），然后再切换至新内核上，但是如果当前正在使用的内核与废弃的内核是同一个版本，此时是不允许被删除的（意味着系统得一直带着这个废弃的内核），所以我们需要对内核做回滚。也正因为如此，所以在主机上<font color="red">最好保留一个原始的内核版本</font>，以便在需要时能实现<strong>回滚</strong>。</p>
+<h3 id="内核删除"><a href="#内核删除" class="headerlink" title="内核删除"></a>内核删除</h3><p>  当新内核能满足我们的需要之后，就可以删除老旧的内核了。对于系统自带或通过包管理器安装的内核，可以通过命令（比如：apt或yum等）的方式直接删除。但是对于自己编译的内核就只能通过手动的方式进行删除操作了。</p>
+<p><font color="red">删除前需确认该内核当前未在使用</font></p>
+<ol>
+<li>移出modules<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo rm -rf /lib/modules/&lt;you_want_remove_kernel&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>删除boot img<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo rm -rf /boot/*&lt;key_word_in_your_kernel&gt;*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<p>  由于img文件在boot中会比较多，所以删除img文件，推荐使用通配符*，进行删除。</p>
+<ol start="4">
+<li>重新生成grub.cfg</li>
+</ol>
+<p>  这一步并非必须，只不过不做的话，在启动菜单中会包含无效内核而已。</p>
+<p>  另外如果删除内核后会影响内核排序，那么建议参考上文【内核切换】，在删除内核文件后，重新做一次引导信息刷新。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">grub2-mkconfig -o /boot/grub2/grub.cfg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  从删除的方式可以看出移出自己编译的内核，其实就是从系统目录删除相应的文件即可。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：一次云服务器内核升级之旅</li>
+        <li>本文作者：Ray</li>
+        <li>创建时间：2022-05-23 08:20:00</li>
+        <li>
+            本文链接：https://www.ray0728.cn/2022/05/23/一次云服务器内核升级之旅/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/kernel/">#kernel</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/04/03/%E4%B8%80%E6%AC%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%9A%84%E5%BC%80%E5%8F%91%E5%B0%9D%E8%AF%95/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">一次小游戏的开发尝试</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'x7EKPJccSUW4oG8rk1IuNtoL-9Nh9j0Va',
+                    appKey: 'srEmquGguCjDuK4uW4294jOr',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请不要见怪，请不要见外。',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Ray';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ray</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">蜀ICP备2021011938号</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91"><span class="nav-number">1.</span> <span class="nav-text">内核编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">内核下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">内核配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91-1"><span class="nav-number">1.3.</span> <span class="nav-text">内核编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E5%88%87%E6%8D%A2"><span class="nav-number">1.4.</span> <span class="nav-text">内核切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E5%88%A0%E9%99%A4"><span class="nav-number">1.5.</span> <span class="nav-text">内核删除</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
